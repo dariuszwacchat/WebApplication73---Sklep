@@ -1,0 +1,24 @@
+﻿@model Product
+ 
+ 
+<div class="db">
+    <div class="df">
+        <div class="w-50">
+            <div class="image">
+                @*@if (Model.PhotosProduct != null)
+                {
+                    <img src="@Model.PhotosProduct[0].Path" />
+                }*@
+            </div>
+        </div>
+
+        <div class="w-50 db">
+            <h3>@Model.Name</h3>
+            <h6>
+                <partial name="_cropText" model="Tuple.Create(Model.Description, 300)" />
+            </h6>
+        </div>
+    </div>
+
+    <partial name="_horyzontalnePrzewijanieDetails" />
+</div>

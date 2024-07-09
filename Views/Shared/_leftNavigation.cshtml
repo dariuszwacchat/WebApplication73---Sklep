@@ -1,0 +1,167 @@
+﻿@*@model HomeViewModel
+
+@{
+
+    List <string> marki = new List<string> ()
+                {
+                "Wszystkie",
+                "Babolat",
+                "Head",
+                "Lacoste",
+                "Pacific",
+                "Prince",
+                "Pro Kennex",
+                "Pro's Pro",
+                "Tecnifibre",
+                "Volkl",
+                "Wilson",
+                "Yonex",
+                "Gosen",
+                "Kirschbaum",
+                "MSV",
+                "Polyfibre",
+                "Toalson",
+                "Tourna",
+                "Genesis",
+                "GT",
+                "Klip",
+                "Solinco",
+                "Polystar",
+                "One Strings",
+                "Topspin"
+            };
+
+    string IleProduktowMarka (string marka)
+    {
+        return Model.Products.Where(w => w.Marka == marka).ToList().Count.ToString();
+    }
+
+    string IleProduktowRozmiar (string rozmiar)
+    {
+        return Model.Products.Where(w => w.Rozmiar == rozmiar).ToList().Count.ToString();
+    }
+
+    string IleProduktowKolor (string kolor)
+    {
+        return Model.Products.Where(w => w.Kolor == kolor).ToList().Count.ToString();
+    }
+}
+
+<div class="w-250px">
+    <div class="w-250px db centery filterItems"> 
+        <div class="df">
+            <span>Cena od: </span>
+            <input asp-for="CenaOd" />
+            <span class="ml-10">zł</span>
+        </div>
+        <div class="df">
+            <span>Cena do: </span>
+            <input asp-for="CenaDo" />
+            <span class="ml-10">zł</span>
+        </div> 
+
+        <p class="mt-10 mb-10 b">Marki</p>
+
+        <div class="df">
+            <a asp-action="CategoryDetails" asp-controller="Home">Luxilon: </a>
+            
+            <input asp-for="Luxilon" />
+            <span>(@IleProduktowMarka("Luxilon"))</span>
+        </div>
+        <div class="df">
+            <span>Wilson: </span>
+            <input asp-for="Wilson" />
+            <span>(@IleProduktowMarka("Wilson"))</span>
+        </div>
+        <div class="df">
+            <span>Babolat: </span>
+            <input asp-for="Babolat" />
+            <span>(@IleProduktowMarka("Babolat"))</span>
+        </div>
+        <div class="df">
+            <span>Volkl: </span>
+            <input asp-for="Volkl" />
+            <span>(@IleProduktowMarka("Volkl"))</span>
+        </div>
+        <div class="df">
+            <span>Head: </span>
+            <input asp-for="Head" />
+            <span>(@IleProduktowMarka("Head"))</span>
+        </div>
+        <div class="df">
+            <span>Yonex: </span>
+            <input asp-for="Yonex" />
+            <span>(@IleProduktowMarka("Yonex"))</span>
+        </div>
+        <div class="df">
+            <span>Lacoste: </span>
+            <input asp-for="Lacoste" />
+            <span>(@IleProduktowMarka("Lacoste"))</span>
+        </div>
+        <div class="df">
+            <span>Tencifibre: </span>
+            <input asp-for="Tencifibre" />
+            <span>(@IleProduktowMarka("Tencifibre"))</span>
+        </div>
+
+
+        <p class="mt-10 mb-10 b">Rozmiary</p>
+
+        <div class="df">
+            <span>33: </span>
+            <input asp-for="R33a" />
+            <span>(@IleProduktowRozmiar("33"))</span>
+        </div>
+        <div class="df">
+            <span>33,5: </span>
+            <input asp-for="R33b" />
+            <span>(@IleProduktowRozmiar("33.5"))</span>
+        </div>
+        <div class="df">
+            <span>34: </span>
+            <input asp-for="R34a" />
+            <span>(@IleProduktowRozmiar("34"))</span>
+        </div>
+        <div class="df">
+            <span>34,5: </span>
+            <input asp-for="R34b" />
+            <span>(@IleProduktowRozmiar("34.5"))</span>
+        </div>
+        <div class="df">
+            <span>35: </span>
+            <input asp-for="R35a" />
+            <span>(@IleProduktowRozmiar("35"))</span>
+        </div>
+        <div class="df">
+            <span>35,5: </span>
+            <input asp-for="R35b" />
+            <span>(@IleProduktowRozmiar("35.5"))</span>
+        </div>
+
+
+        <p class="mt-10 mb-10 b">Kolory</p>
+
+        <div class="df">
+            <span>Biały: </span>
+            <input asp-for="Bialy" />
+            <span>(@IleProduktowKolor("Biały"))</span>
+        </div>
+        <div class="df">
+            <span>Niebieski: </span>
+            <input asp-for="Niebieski" />
+            <span>(@IleProduktowKolor("Niebieski"))</span>
+        </div>
+        <div class="df">
+            <span>Zielony: </span>
+            <input asp-for="Zielony" />
+            <span>(@IleProduktowKolor("Zielony"))</span>
+        </div>
+        <div class="df">
+            <span>Czarny: </span>
+            <input asp-for="Czarny" />
+            <span>(@IleProduktowKolor("Czarny"))</span>
+        </div>
+
+    </div>
+</div>
+<input type="submit" value="Filtruj" class="buttonAction" />*@

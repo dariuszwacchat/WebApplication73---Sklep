@@ -1,0 +1,103 @@
+﻿@model List<OrderItem>
+
+@{
+    int index = 0;
+}
+
+
+
+<div class="df">
+
+    <div class="w-250px">
+        <div class="w-250px db">
+            <partial name="_leftNavigationLogin" />
+        </div>
+    </div>
+
+
+    <div class="db">
+
+
+        <div class="w-100">
+
+            <div class="db">
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Lp</th>
+                            <th>Zdjęcie</th>
+                            <th>Nazwa</th>
+                            <th>Ilość</th>
+                            <th>Cena</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var koszykItem in Model)
+                        {
+                            index++;
+
+                            <tr>
+                                <td>@index.</td>
+
+                                <td>
+                                    <div class="image w-70px h-70px">
+                                        @*@if (koszykItem.Product.PhotosProduct != null && koszykItem.Product.PhotosProduct.Any())
+                                        {
+                                            <img src="@koszykItem.Product.PhotosProduct[0].Path" />
+                                        }*@
+                                                                    </div>
+                                </td>
+
+                                <td>
+                                    @koszykItem.Product.Name
+                                </td>
+
+
+                                <td>
+                                    @koszykItem.Ilosc szt.
+                                </td>
+
+
+
+                                <td>
+                                    @{
+                                        string price = $"{koszykItem.Suma.ToString("N2")}";
+                                        <span>@price</span>
+                                    }
+                                </td>
+
+                            </tr>
+                        }
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                @{
+                                    try
+                                    {
+                                        double sumaSuma = Model.Select(s => s.Suma).Sum();
+                                        string sumaSumaString = $"{sumaSuma.ToString("N2")} zł";
+                                        <span>@sumaSumaString</span>
+                                    }
+                                    catch { }
+                                }
+                            </td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+

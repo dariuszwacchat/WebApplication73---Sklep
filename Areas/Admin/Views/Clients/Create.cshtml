@@ -1,0 +1,78 @@
+﻿@model ClientViewModel
+
+<form method="post" asp-action="Create" asp-controller="Clients">
+
+    <div class="form-group">
+        <label asp-for="Imie"></label>
+        <input asp-for="Imie" class="form-control" />
+        <span asp-validation-for="Imie" class="c-red"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Nazwisko"></label>
+        <input asp-for="Nazwisko" class="form-control" />
+        <span asp-validation-for="Nazwisko" class="c-red"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Ulica"></label>
+        <input asp-for="Ulica" class="form-control" />
+        <span asp-validation-for="Ulica" class="c-red"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="KodPocztowy"></label>
+        <input asp-for="KodPocztowy" class="form-control" />
+        <span asp-validation-for="KodPocztowy" class="c-red"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Miejscowosc"></label>
+        <input asp-for="Miejscowosc" class="form-control" />
+        <span asp-validation-for="Miejscowosc" class="c-red"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Kraj"></label>
+        <select asp-for="Kraj" asp-items='@new SelectList(new List<string>() { "Polska" })'></select>
+        <span asp-validation-for="Kraj" class="c-red"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Telefon"></label>
+        <input asp-for="Telefon" class="form-control" />
+        <span asp-validation-for="Telefon" class="c-red"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="c-red"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="RodzajOsoby"></label>
+        <select asp-for="RodzajOsoby" asp-items='@new SelectList(Enum.GetNames(typeof(RodzajOsoby)))'></select>
+        <span asp-validation-for="RodzajOsoby" class="c-red"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Newsletter"></label>
+        <input asp-for="Newsletter" class="form-control" />
+        <span asp-validation-for="Newsletter" class="c-red"></span>
+    </div>
+
+
+
+
+    <div class="p-20 shadow border mt-30">
+        <div class="df-sb">
+            <a asp-action="Index"
+               asp-controller="Clients">
+                Back
+            </a>
+
+            <input type="submit" value="Zapisz" class="btn btn-primary" />
+        </div>
+    </div>
+</form>
+

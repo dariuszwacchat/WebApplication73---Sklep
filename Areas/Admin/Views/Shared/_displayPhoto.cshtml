@@ -1,0 +1,13 @@
+﻿@model Tuple<byte[]>
+
+@{
+    try
+    { 
+        var base64Image = Convert.ToBase64String(Model.Item1);
+        var imgSrc = $"data:image/jpeg;base64,{base64Image}"; 
+
+        <img src="@imgSrc" />
+    }
+    catch { }
+
+}

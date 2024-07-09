@@ -1,0 +1,149 @@
+﻿@model ClientViewModel
+
+@{
+    string password = "SDG%$@5423sdgagSDert";
+}
+
+
+<div class="db">
+    <h1>Jak chcesz kontynuuować zakupy?</h1>
+
+    <label>
+        <input type="radio" name="containerOption" onclick="showContainer('loginContainer')"> Zaloguj się
+    </label>
+
+    <label>
+        <input type="radio" name="containerOption" onclick="showContainer('registerContainer')"> Zarejestruj się
+    </label>
+
+    <label>
+        <input type="radio" name="containerOption" onclick="showContainer('withoutRegisterContainer')"> Kontynuuj bez rejestracji
+    </label>
+</div>
+
+
+
+<div id="loginContainer" class="container-payment-options">
+
+    @*<h3>@password</h3>
+
+    <form method="post" asp-action="Login" asp-controller="Account">
+        <div as asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Email"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Password"></label>
+            <input asp-for="Password" value="@password" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <input type="submit" value="Zaloguj" class="btn btn-primary" />
+         
+
+    </form>*@
+</div>
+
+
+
+
+
+<div id="registerContainer" class="container-payment-options">
+    <partial name="_RegisterPartial" model="@new RegisterViewModel()" />
+</div>
+
+
+
+
+
+
+<div id="withoutRegisterContainer" class="container-payment-options">
+
+    <h2>Podaj dane do wysyłki</h2>
+
+    <form method="post" asp-action="OrderFormularz" asp-controller="Orders">
+
+        <div class="db">
+            <div class="form-group">
+                <label asp-for="RodzajOsoby"></label>
+                <select asp-for="RodzajOsoby" asp-items='@new SelectList(Enum.GetNames(typeof(RodzajOsoby)))'></select>
+                <span asp-validation-for="RodzajOsoby" class="c-red"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Imie"></label>
+                <input asp-for="Imie" class="form-control" />
+                <span asp-validation-for="Imie" class="c-red"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Nazwisko"></label>
+                <input asp-for="Nazwisko" class="form-control" />
+                <span asp-validation-for="Nazwisko" class="c-red"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Ulica"></label>
+                <input asp-for="Ulica" class="form-control" />
+                <span asp-validation-for="Ulica" class="c-red"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="KodPocztowy"></label>
+                <input asp-for="KodPocztowy" class="form-control" />
+                <span asp-validation-for="KodPocztowy" class="c-red"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Miejscowosc"></label>
+                <input asp-for="Miejscowosc" class="form-control" />
+                <span asp-validation-for="Miejscowosc" class="c-red"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Kraj"></label>
+                <select asp-for="Kraj" asp-items='@new SelectList(new List<string>() { "Polska" })'></select>
+                <span asp-validation-for="Kraj" class="c-red"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Telefon"></label>
+                <input asp-for="Telefon" class="form-control" />
+                <span asp-validation-for="Telefon" class="c-red"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="c-red"></span>
+            </div>
+
+
+            <hr />
+
+            @*<div class="form-group">
+                    <label asp-for="OswiadczeniaConfirmed"></label>
+                    <input asp-for="OswiadczeniaConfirmed" class="form-control" />
+                    <span asp-validation-for="OswiadczeniaConfirmed" class="c-red"></span>
+                </div>*@
+
+            <div class="form-group">
+                <label asp-for="Newsletter"></label>
+                <input asp-for="Newsletter" class="form-control" />
+                <span asp-validation-for="Newsletter" class="c-red"></span>
+            </div>
+
+
+            <div class="df">
+                <a asp-action="Index" asp-controller="Koszyk">Back</a>
+                <input type="submit" asp-action="OrderFormularz" asp-controller="Orders" value="Dalej" style="padding: 5px 15px; background-color:beige;" />
+            </div>
+        </div>
+    </form>
+</div>
+
+
+

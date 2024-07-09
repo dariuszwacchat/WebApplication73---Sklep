@@ -1,0 +1,1102 @@
+﻿@model ProductsViewModel
+
+@{
+    int iloscProduktow = 0;
+    int choosenCategory = 0;
+
+    if (!string.IsNullOrEmpty(Model.CategoryName))
+        choosenCategory = 1;
+
+    if (!string.IsNullOrEmpty(Model.CategoryName) && !string.IsNullOrEmpty(Model.SubcategoryName))
+        choosenCategory = 2;
+
+    if (!string.IsNullOrEmpty(Model.CategoryName) && !string.IsNullOrEmpty(Model.SubcategoryName) && !string.IsNullOrEmpty(Model.SubsubcategoryName))
+        choosenCategory = 3;
+
+
+
+} 
+
+
+<input type="submit" value="Filtruj" />
+
+<h3 class="mt-10 mb-5">Filter by Marka</h3>
+<div class="checkBoxContainer">
+    @{
+
+        if (choosenCategory == 1)
+        {
+            for (var i = 0; i < Model.Marki.Count; i++)
+            {
+                string markaName = Model.Marki[i];
+                string markaForName = $"{Model.Marki[i]}Checkbox{i}";
+
+                if (Model.SelectedBrands.Any() && !Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Marka.Name == markaName && w.Category.Name == Model.CategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@markaForName" name="SelectedBrands" value="@markaName" @(Model.SelectedBrands != null && Model.SelectedBrands.Contains(@markaName) ? "checked" : "") />
+                            <label class="form-check-label" for="@markaForName">@markaName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+
+                }
+
+                else if (Model.SelectedBrands.Any() && Model.SelectedColors.Any() && Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Marka.Name == markaName && Model.SelectedColors.Any(a => a == w.Kolor) && Model.SelectedRozmiary.Any(a => a == w.Rozmiar) && w.Category.Name == Model.CategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@markaForName" name="SelectedBrands" value="@markaName" @(Model.SelectedBrands != null && Model.SelectedBrands.Contains(@markaName) ? "checked" : "") />
+                            <label class="form-check-label" for="@markaForName">@markaName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (Model.SelectedBrands.Any() && !Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Marka.Name == markaName && Model.SelectedColors.Any(a => a == w.Kolor) && w.Category.Name == Model.CategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@markaForName" name="SelectedBrands" value="@markaName" @(Model.SelectedBrands != null && Model.SelectedBrands.Contains(@markaName) ? "checked" : "") />
+                            <label class="form-check-label" for="@markaForName">@markaName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (Model.SelectedBrands.Any() && Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Marka.Name == markaName && Model.SelectedColors.Any(a => a == w.Kolor) && w.Category.Name == Model.CategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@markaForName" name="SelectedBrands" value="@markaName" @(Model.SelectedBrands != null && Model.SelectedBrands.Contains(@markaName) ? "checked" : "") />
+                            <label class="form-check-label" for="@markaForName">@markaName | </label>
+                            <span>@iloscProduktow</span>
+
+                        </div>
+                    }
+                }
+
+                else if (!Model.SelectedBrands.Any() && !Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Marka.Name == markaName && w.Category.Name == Model.CategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@markaForName" name="SelectedBrands" value="@markaName" @(Model.SelectedBrands != null && Model.SelectedBrands.Contains(@markaName) ? "checked" : "") />
+                            <label class="form-check-label" for="@markaForName">@markaName | </label>
+                            <span>@iloscProduktow</span>
+
+                        </div>
+                    }
+                }
+
+                else if (!Model.SelectedBrands.Any() && Model.SelectedColors.Any() && Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Marka.Name == markaName && Model.SelectedColors.Any(a => a == w.Kolor) && Model.SelectedRozmiary.Any(a => a == w.Rozmiar) && w.Category.Name == Model.CategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@markaForName" name="SelectedBrands" value="@markaName" @(Model.SelectedBrands != null && Model.SelectedBrands.Contains(@markaName) ? "checked" : "") />
+                            <label class="form-check-label" for="@markaForName">@markaName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (!Model.SelectedBrands.Any() && !Model.SelectedColors.Any() && Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Marka.Name == markaName && Model.SelectedRozmiary.Any(a => a == w.Rozmiar) && w.Category.Name == Model.CategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@markaForName" name="SelectedBrands" value="@markaName" @(Model.SelectedBrands != null && Model.SelectedBrands.Contains(@markaName) ? "checked" : "") />
+                            <label class="form-check-label" for="@markaForName">@markaName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (!Model.SelectedBrands.Any() && Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Marka.Name == markaName && Model.SelectedColors.Any(a => a == w.Kolor) && w.Category.Name == Model.CategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@markaForName" name="SelectedBrands" value="@markaName" @(Model.SelectedBrands != null && Model.SelectedBrands.Contains(@markaName) ? "checked" : "") />
+                            <label class="form-check-label" for="@markaForName">@markaName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+            }
+        }
+
+
+
+        if (choosenCategory == 2)
+        {
+            for (var i = 0; i < Model.Marki.Count; i++)
+            {
+                string markaName = Model.Marki[i];
+                string markaForName = $"{Model.Marki[i]}Checkbox{i}";
+
+                if (Model.SelectedBrands.Any() && !Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Marka.Name == markaName && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@markaForName" name="SelectedBrands" value="@markaName" @(Model.SelectedBrands != null && Model.SelectedBrands.Contains(@markaName) ? "checked" : "") />
+                            <label class="form-check-label" for="@markaForName">@markaName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+
+                }
+
+                else if (Model.SelectedBrands.Any() && Model.SelectedColors.Any() && Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Marka.Name == markaName && Model.SelectedColors.Any(a => a == w.Kolor) && Model.SelectedRozmiary.Any(a => a == w.Rozmiar) && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@markaForName" name="SelectedBrands" value="@markaName" @(Model.SelectedBrands != null && Model.SelectedBrands.Contains(@markaName) ? "checked" : "") />
+                            <label class="form-check-label" for="@markaForName">@markaName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (Model.SelectedBrands.Any() && !Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Marka.Name == markaName && Model.SelectedColors.Any(a => a == w.Kolor) && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@markaForName" name="SelectedBrands" value="@markaName" @(Model.SelectedBrands != null && Model.SelectedBrands.Contains(@markaName) ? "checked" : "") />
+                            <label class="form-check-label" for="@markaForName">@markaName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (Model.SelectedBrands.Any() && Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Marka.Name == markaName && Model.SelectedColors.Any(a => a == w.Kolor) && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@markaForName" name="SelectedBrands" value="@markaName" @(Model.SelectedBrands != null && Model.SelectedBrands.Contains(@markaName) ? "checked" : "") />
+                            <label class="form-check-label" for="@markaForName">@markaName | </label>
+                            <span>@iloscProduktow</span>
+
+                        </div>
+                    }
+                }
+
+                else if (!Model.SelectedBrands.Any() && !Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Marka.Name == markaName && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@markaForName" name="SelectedBrands" value="@markaName" @(Model.SelectedBrands != null && Model.SelectedBrands.Contains(@markaName) ? "checked" : "") />
+                            <label class="form-check-label" for="@markaForName">@markaName | </label>
+                            <span>@iloscProduktow</span>
+
+                        </div>
+                    }
+                }
+
+                else if (!Model.SelectedBrands.Any() && Model.SelectedColors.Any() && Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Marka.Name == markaName && Model.SelectedColors.Any(a => a == w.Kolor) && Model.SelectedRozmiary.Any(a => a == w.Rozmiar) && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@markaForName" name="SelectedBrands" value="@markaName" @(Model.SelectedBrands != null && Model.SelectedBrands.Contains(@markaName) ? "checked" : "") />
+                            <label class="form-check-label" for="@markaForName">@markaName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (!Model.SelectedBrands.Any() && !Model.SelectedColors.Any() && Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Marka.Name == markaName && Model.SelectedRozmiary.Any(a => a == w.Rozmiar) && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@markaForName" name="SelectedBrands" value="@markaName" @(Model.SelectedBrands != null && Model.SelectedBrands.Contains(@markaName) ? "checked" : "") />
+                            <label class="form-check-label" for="@markaForName">@markaName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (!Model.SelectedBrands.Any() && Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Marka.Name == markaName && Model.SelectedColors.Any(a => a == w.Kolor) && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@markaForName" name="SelectedBrands" value="@markaName" @(Model.SelectedBrands != null && Model.SelectedBrands.Contains(@markaName) ? "checked" : "") />
+                            <label class="form-check-label" for="@markaForName">@markaName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+            }
+        }
+
+
+
+        if (choosenCategory == 3)
+        {
+            for (var i = 0; i < Model.Marki.Count; i++)
+            {
+                string markaName = Model.Marki[i];
+                string markaForName = $"{Model.Marki[i]}Checkbox{i}";
+
+                if (Model.SelectedBrands.Any() && !Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Marka.Name == markaName && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName && w.Subsubcategory.Name == Model.SubsubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@markaForName" name="SelectedBrands" value="@markaName" @(Model.SelectedBrands != null && Model.SelectedBrands.Contains(@markaName) ? "checked" : "") />
+                            <label class="form-check-label" for="@markaForName">@markaName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+
+                }
+
+                else if (Model.SelectedBrands.Any() && Model.SelectedColors.Any() && Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Marka.Name == markaName && Model.SelectedColors.Any(a => a == w.Kolor) && Model.SelectedRozmiary.Any(a => a == w.Rozmiar) && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName && w.Subsubcategory.Name == Model.SubsubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@markaForName" name="SelectedBrands" value="@markaName" @(Model.SelectedBrands != null && Model.SelectedBrands.Contains(@markaName) ? "checked" : "") />
+                            <label class="form-check-label" for="@markaForName">@markaName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (Model.SelectedBrands.Any() && !Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Marka.Name == markaName && Model.SelectedColors.Any(a => a == w.Kolor) && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName && w.Subsubcategory.Name == Model.SubsubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@markaForName" name="SelectedBrands" value="@markaName" @(Model.SelectedBrands != null && Model.SelectedBrands.Contains(@markaName) ? "checked" : "") />
+                            <label class="form-check-label" for="@markaForName">@markaName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (Model.SelectedBrands.Any() && Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Marka.Name == markaName && Model.SelectedColors.Any(a => a == w.Kolor) && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName && w.Subsubcategory.Name == Model.SubsubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@markaForName" name="SelectedBrands" value="@markaName" @(Model.SelectedBrands != null && Model.SelectedBrands.Contains(@markaName) ? "checked" : "") />
+                            <label class="form-check-label" for="@markaForName">@markaName | </label>
+                            <span>@iloscProduktow</span>
+
+                        </div>
+                    }
+                }
+
+                else if (!Model.SelectedBrands.Any() && !Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Marka.Name == markaName && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName && w.Subsubcategory.Name == Model.SubsubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@markaForName" name="SelectedBrands" value="@markaName" @(Model.SelectedBrands != null && Model.SelectedBrands.Contains(@markaName) ? "checked" : "") />
+                            <label class="form-check-label" for="@markaForName">@markaName | </label>
+                            <span>@iloscProduktow</span>
+
+                        </div>
+                    }
+                }
+
+                else if (!Model.SelectedBrands.Any() && Model.SelectedColors.Any() && Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Marka.Name == markaName && Model.SelectedColors.Any(a => a == w.Kolor) && Model.SelectedRozmiary.Any(a => a == w.Rozmiar) && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName && w.Subsubcategory.Name == Model.SubsubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@markaForName" name="SelectedBrands" value="@markaName" @(Model.SelectedBrands != null && Model.SelectedBrands.Contains(@markaName) ? "checked" : "") />
+                            <label class="form-check-label" for="@markaForName">@markaName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (!Model.SelectedBrands.Any() && !Model.SelectedColors.Any() && Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Marka.Name == markaName && Model.SelectedRozmiary.Any(a => a == w.Rozmiar) && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName && w.Subsubcategory.Name == Model.SubsubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@markaForName" name="SelectedBrands" value="@markaName" @(Model.SelectedBrands != null && Model.SelectedBrands.Contains(@markaName) ? "checked" : "") />
+                            <label class="form-check-label" for="@markaForName">@markaName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (!Model.SelectedBrands.Any() && Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Marka.Name == markaName && Model.SelectedColors.Any(a => a == w.Kolor) && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName && w.Subsubcategory.Name == Model.SubsubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@markaForName" name="SelectedBrands" value="@markaName" @(Model.SelectedBrands != null && Model.SelectedBrands.Contains(@markaName) ? "checked" : "") />
+                            <label class="form-check-label" for="@markaForName">@markaName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+            }
+        }
+    }
+</div>
+
+
+
+
+
+
+
+
+<h3 class="mt-10 mb-5">Filter by Color</h3>
+<div>
+    @{
+
+
+        if (choosenCategory == 1)
+        {
+            for (var i = 0; i < Model.Kolory.Count; i++)
+            {
+                string colorName = $"{Model.Kolory[i]}";
+                string colorForName = $"{Model.Kolory[i]}Checkbox{i}";
+
+                if (Model.SelectedBrands.Any() && !Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Kolor == colorName && Model.SelectedBrands.Any(a => a == w.Marka.Name) && w.Category.Name == Model.CategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@colorForName" name="SelectedColors" value="@colorName" @(Model.SelectedColors != null && Model.SelectedColors.Contains(colorName) ? "checked" : "") />
+                            <label class="form-check-label" for="@colorForName">@colorName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (Model.SelectedBrands.Any() && Model.SelectedColors.Any() && Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Kolor == colorName && Model.SelectedBrands.Any(a => a == w.Marka.Name) && Model.SelectedRozmiary.Any(a => a == w.Rozmiar) && w.Category.Name == Model.CategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@colorForName" name="SelectedColors" value="@colorName" @(Model.SelectedColors != null && Model.SelectedColors.Contains(colorName) ? "checked" : "") />
+                            <label class="form-check-label" for="@colorForName">@colorName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (Model.SelectedBrands.Any() && !Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Kolor == colorName && Model.SelectedBrands.Any(a => a == w.Marka.Name) && w.Category.Name == Model.CategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@colorForName" name="SelectedColors" value="@colorName" @(Model.SelectedColors != null && Model.SelectedColors.Contains(colorName) ? "checked" : "") />
+                            <label class="form-check-label" for="@colorForName">@colorName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (Model.SelectedBrands.Any() && Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Kolor == colorName && Model.SelectedBrands.Any(a => a == w.Marka.Name) && w.Category.Name == Model.CategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@colorForName" name="SelectedColors" value="@colorName" @(Model.SelectedColors != null && Model.SelectedColors.Contains(colorName) ? "checked" : "") />
+                            <label class="form-check-label" for="@colorForName">@colorName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (!Model.SelectedBrands.Any() && !Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Kolor == colorName && w.Category.Name == Model.CategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@colorForName" name="SelectedColors" value="@colorName" @(Model.SelectedColors != null && Model.SelectedColors.Contains(colorName) ? "checked" : "") />
+                            <label class="form-check-label" for="@colorForName">@colorName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (!Model.SelectedBrands.Any() && Model.SelectedColors.Any() && Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Kolor == colorName && Model.SelectedRozmiary.Any(a => a == w.Rozmiar) && w.Category.Name == Model.CategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@colorForName" name="SelectedColors" value="@colorName" @(Model.SelectedColors != null && Model.SelectedColors.Contains(colorName) ? "checked" : "") />
+                            <label class="form-check-label" for="@colorForName">@colorName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (!Model.SelectedBrands.Any() && !Model.SelectedColors.Any() && Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Kolor == colorName && Model.SelectedRozmiary.Any(a => a == w.Rozmiar) && w.Category.Name == Model.CategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@colorForName" name="SelectedColors" value="@colorName" @(Model.SelectedColors != null && Model.SelectedColors.Contains(colorName) ? "checked" : "") />
+                            <label class="form-check-label" for="@colorForName">@colorName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (!Model.SelectedBrands.Any() && Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Kolor == colorName && w.Category.Name == Model.CategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@colorForName" name="SelectedColors" value="@colorName" @(Model.SelectedColors != null && Model.SelectedColors.Contains(colorName) ? "checked" : "") />
+                            <label class="form-check-label" for="@colorForName">@colorName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+            }
+        }
+
+
+
+        if (choosenCategory == 2)
+        {
+            for (var i = 0; i < Model.Kolory.Count; i++)
+            {
+                string colorName = $"{Model.Kolory[i]}";
+                string colorForName = $"{Model.Kolory[i]}Checkbox{i}";
+
+                if (Model.SelectedBrands.Any() && !Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Kolor == colorName && Model.SelectedBrands.Any(a => a == w.Marka.Name) && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@colorForName" name="SelectedColors" value="@colorName" @(Model.SelectedColors != null && Model.SelectedColors.Contains(colorName) ? "checked" : "") />
+                            <label class="form-check-label" for="@colorForName">@colorName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (Model.SelectedBrands.Any() && Model.SelectedColors.Any() && Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Kolor == colorName && Model.SelectedBrands.Any(a => a == w.Marka.Name) && Model.SelectedRozmiary.Any(a => a == w.Rozmiar) && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@colorForName" name="SelectedColors" value="@colorName" @(Model.SelectedColors != null && Model.SelectedColors.Contains(colorName) ? "checked" : "") />
+                            <label class="form-check-label" for="@colorForName">@colorName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (Model.SelectedBrands.Any() && !Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Kolor == colorName && Model.SelectedBrands.Any(a => a == w.Marka.Name) && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@colorForName" name="SelectedColors" value="@colorName" @(Model.SelectedColors != null && Model.SelectedColors.Contains(colorName) ? "checked" : "") />
+                            <label class="form-check-label" for="@colorForName">@colorName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (Model.SelectedBrands.Any() && Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Kolor == colorName && Model.SelectedBrands.Any(a => a == w.Marka.Name) && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@colorForName" name="SelectedColors" value="@colorName" @(Model.SelectedColors != null && Model.SelectedColors.Contains(colorName) ? "checked" : "") />
+                            <label class="form-check-label" for="@colorForName">@colorName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (!Model.SelectedBrands.Any() && !Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Kolor == colorName && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@colorForName" name="SelectedColors" value="@colorName" @(Model.SelectedColors != null && Model.SelectedColors.Contains(colorName) ? "checked" : "") />
+                            <label class="form-check-label" for="@colorForName">@colorName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (!Model.SelectedBrands.Any() && Model.SelectedColors.Any() && Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Kolor == colorName && Model.SelectedRozmiary.Any(a => a == w.Rozmiar) && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@colorForName" name="SelectedColors" value="@colorName" @(Model.SelectedColors != null && Model.SelectedColors.Contains(colorName) ? "checked" : "") />
+                            <label class="form-check-label" for="@colorForName">@colorName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (!Model.SelectedBrands.Any() && !Model.SelectedColors.Any() && Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Kolor == colorName && Model.SelectedRozmiary.Any(a => a == w.Rozmiar) && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@colorForName" name="SelectedColors" value="@colorName" @(Model.SelectedColors != null && Model.SelectedColors.Contains(colorName) ? "checked" : "") />
+                            <label class="form-check-label" for="@colorForName">@colorName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (!Model.SelectedBrands.Any() && Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Kolor == colorName && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@colorForName" name="SelectedColors" value="@colorName" @(Model.SelectedColors != null && Model.SelectedColors.Contains(colorName) ? "checked" : "") />
+                            <label class="form-check-label" for="@colorForName">@colorName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+            }
+        }
+
+
+        if (choosenCategory == 3)
+        {
+            for (var i = 0; i < Model.Kolory.Count; i++)
+            {
+                string colorName = $"{Model.Kolory[i]}";
+                string colorForName = $"{Model.Kolory[i]}Checkbox{i}";
+
+                if (Model.SelectedBrands.Any() && !Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Kolor == colorName && Model.SelectedBrands.Any(a => a == w.Marka.Name) && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName && w.Subsubcategory.Name == Model.SubsubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@colorForName" name="SelectedColors" value="@colorName" @(Model.SelectedColors != null && Model.SelectedColors.Contains(colorName) ? "checked" : "") />
+                            <label class="form-check-label" for="@colorForName">@colorName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (Model.SelectedBrands.Any() && Model.SelectedColors.Any() && Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Kolor == colorName && Model.SelectedBrands.Any(a => a == w.Marka.Name) && Model.SelectedRozmiary.Any(a => a == w.Rozmiar) && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName && w.Subsubcategory.Name == Model.SubsubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@colorForName" name="SelectedColors" value="@colorName" @(Model.SelectedColors != null && Model.SelectedColors.Contains(colorName) ? "checked" : "") />
+                            <label class="form-check-label" for="@colorForName">@colorName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (Model.SelectedBrands.Any() && !Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Kolor == colorName && Model.SelectedBrands.Any(a => a == w.Marka.Name) && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName && w.Subsubcategory.Name == Model.SubsubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@colorForName" name="SelectedColors" value="@colorName" @(Model.SelectedColors != null && Model.SelectedColors.Contains(colorName) ? "checked" : "") />
+                            <label class="form-check-label" for="@colorForName">@colorName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (Model.SelectedBrands.Any() && Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Kolor == colorName && Model.SelectedBrands.Any(a => a == w.Marka.Name) && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName && w.Subsubcategory.Name == Model.SubsubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@colorForName" name="SelectedColors" value="@colorName" @(Model.SelectedColors != null && Model.SelectedColors.Contains(colorName) ? "checked" : "") />
+                            <label class="form-check-label" for="@colorForName">@colorName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (!Model.SelectedBrands.Any() && !Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Kolor == colorName && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName && w.Subsubcategory.Name == Model.SubsubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@colorForName" name="SelectedColors" value="@colorName" @(Model.SelectedColors != null && Model.SelectedColors.Contains(colorName) ? "checked" : "") />
+                            <label class="form-check-label" for="@colorForName">@colorName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (!Model.SelectedBrands.Any() && Model.SelectedColors.Any() && Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Kolor == colorName && Model.SelectedRozmiary.Any(a => a == w.Rozmiar) && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName && w.Subsubcategory.Name == Model.SubsubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@colorForName" name="SelectedColors" value="@colorName" @(Model.SelectedColors != null && Model.SelectedColors.Contains(colorName) ? "checked" : "") />
+                            <label class="form-check-label" for="@colorForName">@colorName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (!Model.SelectedBrands.Any() && !Model.SelectedColors.Any() && Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Kolor == colorName && Model.SelectedRozmiary.Any(a => a == w.Rozmiar) && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName && w.Subsubcategory.Name == Model.SubsubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@colorForName" name="SelectedColors" value="@colorName" @(Model.SelectedColors != null && Model.SelectedColors.Contains(colorName) ? "checked" : "") />
+                            <label class="form-check-label" for="@colorForName">@colorName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (!Model.SelectedBrands.Any() && Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Kolor == colorName && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName && w.Subsubcategory.Name == Model.SubsubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@colorForName" name="SelectedColors" value="@colorName" @(Model.SelectedColors != null && Model.SelectedColors.Contains(colorName) ? "checked" : "") />
+                            <label class="form-check-label" for="@colorForName">@colorName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+            }
+        }
+    }
+</div>
+
+
+
+
+
+
+
+
+
+<h3 class="mt-10 mb-5">Filter by Rozmiar</h3>
+<div>
+    @{
+
+        if (choosenCategory == 1)
+        {
+            for (var i = 0; i < Model.Rozmiary.Count; i++)
+            {
+                string rozmiarName = Model.Rozmiary[i];
+                string rozmiarForName = $"{Model.Rozmiary[i]}Checkbox{i}";
+
+                if (Model.SelectedBrands.Any() && !Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Rozmiar == rozmiarName && Model.SelectedBrands.Any(a => a == w.Marka.Name) && w.Category.Name == Model.CategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@rozmiarForName" name="SelectedRozmiary" value="@rozmiarName" @(Model.SelectedRozmiary != null && Model.SelectedRozmiary.Contains(@rozmiarName) ? "checked" : "") />
+                            <label class="form-check-label" for="@rozmiarForName">@rozmiarName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (Model.SelectedBrands.Any() && Model.SelectedColors.Any() && Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Rozmiar == rozmiarName && Model.SelectedBrands.Any(a => a == w.Marka.Name) && Model.SelectedColors.Any(a => a == w.Kolor) && w.Category.Name == Model.CategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@rozmiarForName" name="SelectedRozmiary" value="@rozmiarName" @(Model.SelectedRozmiary != null && Model.SelectedRozmiary.Contains(@rozmiarName) ? "checked" : "") />
+                            <label class="form-check-label" for="@rozmiarForName">@rozmiarName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (Model.SelectedBrands.Any() && !Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Rozmiar == rozmiarName && Model.SelectedBrands.Any(a => a == w.Marka.Name) && w.Category.Name == Model.CategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@rozmiarForName" name="SelectedRozmiary" value="@rozmiarName" @(Model.SelectedRozmiary != null && Model.SelectedRozmiary.Contains(@rozmiarName) ? "checked" : "") />
+                            <label class="form-check-label" for="@rozmiarForName">@rozmiarName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (Model.SelectedBrands.Any() && Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Rozmiar == rozmiarName && Model.SelectedBrands.Any(a => a == w.Marka.Name) && Model.SelectedColors.Any(a => a == w.Kolor) && w.Category.Name == Model.CategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@rozmiarForName" name="SelectedRozmiary" value="@rozmiarName" @(Model.SelectedRozmiary != null && Model.SelectedRozmiary.Contains(@rozmiarName) ? "checked" : "") />
+                            <label class="form-check-label" for="@rozmiarForName">@rozmiarName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (!Model.SelectedBrands.Any() && !Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Rozmiar == rozmiarName && w.Category.Name == Model.CategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@rozmiarForName" name="SelectedRozmiary" value="@rozmiarName" @(Model.SelectedRozmiary != null && Model.SelectedRozmiary.Contains(@rozmiarName) ? "checked" : "") />
+                            <label class="form-check-label" for="@rozmiarForName">@rozmiarName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (!Model.SelectedBrands.Any() && Model.SelectedColors.Any() && Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Rozmiar == rozmiarName && Model.SelectedColors.Any(a => a == w.Kolor) && w.Category.Name == Model.CategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@rozmiarForName" name="SelectedRozmiary" value="@rozmiarName" @(Model.SelectedRozmiary != null && Model.SelectedRozmiary.Contains(@rozmiarName) ? "checked" : "") />
+                            <label class="form-check-label" for="@rozmiarForName">@rozmiarName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (!Model.SelectedBrands.Any() && !Model.SelectedColors.Any() && Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Rozmiar == rozmiarName && w.Category.Name == Model.CategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@rozmiarForName" name="SelectedRozmiary" value="@rozmiarName" @(Model.SelectedRozmiary != null && Model.SelectedRozmiary.Contains(@rozmiarName) ? "checked" : "") />
+                            <label class="form-check-label" for="@rozmiarForName">@rozmiarName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (!Model.SelectedBrands.Any() && Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Rozmiar == rozmiarName && Model.SelectedColors.Any(a => a == w.Kolor) && w.Category.Name == Model.CategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@rozmiarForName" name="SelectedRozmiary" value="@rozmiarName" @(Model.SelectedRozmiary != null && Model.SelectedRozmiary.Contains(@rozmiarName) ? "checked" : "") />
+                            <label class="form-check-label" for="@rozmiarForName">@rozmiarName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+            }
+        }
+
+
+
+        if (choosenCategory == 2)
+        {
+            for (var i = 0; i < Model.Rozmiary.Count; i++)
+            {
+                string rozmiarName = Model.Rozmiary[i];
+                string rozmiarForName = $"{Model.Rozmiary[i]}Checkbox{i}";
+
+                if (Model.SelectedBrands.Any() && !Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Rozmiar == rozmiarName && Model.SelectedBrands.Any(a => a == w.Marka.Name) && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@rozmiarForName" name="SelectedRozmiary" value="@rozmiarName" @(Model.SelectedRozmiary != null && Model.SelectedRozmiary.Contains(@rozmiarName) ? "checked" : "") />
+                            <label class="form-check-label" for="@rozmiarForName">@rozmiarName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (Model.SelectedBrands.Any() && Model.SelectedColors.Any() && Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Rozmiar == rozmiarName && Model.SelectedBrands.Any(a => a == w.Marka.Name) && Model.SelectedColors.Any(a => a == w.Kolor) && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@rozmiarForName" name="SelectedRozmiary" value="@rozmiarName" @(Model.SelectedRozmiary != null && Model.SelectedRozmiary.Contains(@rozmiarName) ? "checked" : "") />
+                            <label class="form-check-label" for="@rozmiarForName">@rozmiarName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (Model.SelectedBrands.Any() && !Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Rozmiar == rozmiarName && Model.SelectedBrands.Any(a => a == w.Marka.Name) && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@rozmiarForName" name="SelectedRozmiary" value="@rozmiarName" @(Model.SelectedRozmiary != null && Model.SelectedRozmiary.Contains(@rozmiarName) ? "checked" : "") />
+                            <label class="form-check-label" for="@rozmiarForName">@rozmiarName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (Model.SelectedBrands.Any() && Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Rozmiar == rozmiarName && Model.SelectedBrands.Any(a => a == w.Marka.Name) && Model.SelectedColors.Any(a => a == w.Kolor) && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@rozmiarForName" name="SelectedRozmiary" value="@rozmiarName" @(Model.SelectedRozmiary != null && Model.SelectedRozmiary.Contains(@rozmiarName) ? "checked" : "") />
+                            <label class="form-check-label" for="@rozmiarForName">@rozmiarName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (!Model.SelectedBrands.Any() && !Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Rozmiar == rozmiarName && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@rozmiarForName" name="SelectedRozmiary" value="@rozmiarName" @(Model.SelectedRozmiary != null && Model.SelectedRozmiary.Contains(@rozmiarName) ? "checked" : "") />
+                            <label class="form-check-label" for="@rozmiarForName">@rozmiarName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (!Model.SelectedBrands.Any() && Model.SelectedColors.Any() && Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Rozmiar == rozmiarName && Model.SelectedColors.Any(a => a == w.Kolor) && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@rozmiarForName" name="SelectedRozmiary" value="@rozmiarName" @(Model.SelectedRozmiary != null && Model.SelectedRozmiary.Contains(@rozmiarName) ? "checked" : "") />
+                            <label class="form-check-label" for="@rozmiarForName">@rozmiarName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (!Model.SelectedBrands.Any() && !Model.SelectedColors.Any() && Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Rozmiar == rozmiarName && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@rozmiarForName" name="SelectedRozmiary" value="@rozmiarName" @(Model.SelectedRozmiary != null && Model.SelectedRozmiary.Contains(@rozmiarName) ? "checked" : "") />
+                            <label class="form-check-label" for="@rozmiarForName">@rozmiarName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (!Model.SelectedBrands.Any() && Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Rozmiar == rozmiarName && Model.SelectedColors.Any(a => a == w.Kolor) && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName && w.Subcategory.Name == Model.SubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@rozmiarForName" name="SelectedRozmiary" value="@rozmiarName" @(Model.SelectedRozmiary != null && Model.SelectedRozmiary.Contains(@rozmiarName) ? "checked" : "") />
+                            <label class="form-check-label" for="@rozmiarForName">@rozmiarName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+            }
+        }
+
+
+
+        if (choosenCategory == 3)
+        {
+            for (var i = 0; i < Model.Rozmiary.Count; i++)
+            {
+                string rozmiarName = Model.Rozmiary[i];
+                string rozmiarForName = $"{Model.Rozmiary[i]}Checkbox{i}";
+
+                if (Model.SelectedBrands.Any() && !Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Rozmiar == rozmiarName && Model.SelectedBrands.Any(a => a == w.Marka.Name) && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName && w.Subsubcategory.Name == Model.SubsubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@rozmiarForName" name="SelectedRozmiary" value="@rozmiarName" @(Model.SelectedRozmiary != null && Model.SelectedRozmiary.Contains(@rozmiarName) ? "checked" : "") />
+                            <label class="form-check-label" for="@rozmiarForName">@rozmiarName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (Model.SelectedBrands.Any() && Model.SelectedColors.Any() && Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Rozmiar == rozmiarName && Model.SelectedBrands.Any(a => a == w.Marka.Name) && Model.SelectedColors.Any(a => a == w.Kolor) && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName && w.Subsubcategory.Name == Model.SubsubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@rozmiarForName" name="SelectedRozmiary" value="@rozmiarName" @(Model.SelectedRozmiary != null && Model.SelectedRozmiary.Contains(@rozmiarName) ? "checked" : "") />
+                            <label class="form-check-label" for="@rozmiarForName">@rozmiarName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (Model.SelectedBrands.Any() && !Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Rozmiar == rozmiarName && Model.SelectedBrands.Any(a => a == w.Marka.Name) && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName && w.Subsubcategory.Name == Model.SubsubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@rozmiarForName" name="SelectedRozmiary" value="@rozmiarName" @(Model.SelectedRozmiary != null && Model.SelectedRozmiary.Contains(@rozmiarName) ? "checked" : "") />
+                            <label class="form-check-label" for="@rozmiarForName">@rozmiarName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (Model.SelectedBrands.Any() && Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Rozmiar == rozmiarName && Model.SelectedBrands.Any(a => a == w.Marka.Name) && Model.SelectedColors.Any(a => a == w.Kolor) && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName && w.Subsubcategory.Name == Model.SubsubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@rozmiarForName" name="SelectedRozmiary" value="@rozmiarName" @(Model.SelectedRozmiary != null && Model.SelectedRozmiary.Contains(@rozmiarName) ? "checked" : "") />
+                            <label class="form-check-label" for="@rozmiarForName">@rozmiarName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (!Model.SelectedBrands.Any() && !Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Rozmiar == rozmiarName && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName && w.Subsubcategory.Name == Model.SubsubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@rozmiarForName" name="SelectedRozmiary" value="@rozmiarName" @(Model.SelectedRozmiary != null && Model.SelectedRozmiary.Contains(@rozmiarName) ? "checked" : "") />
+                            <label class="form-check-label" for="@rozmiarForName">@rozmiarName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (!Model.SelectedBrands.Any() && Model.SelectedColors.Any() && Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Rozmiar == rozmiarName && Model.SelectedColors.Any(a => a == w.Kolor) && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName && w.Subsubcategory.Name == Model.SubsubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@rozmiarForName" name="SelectedRozmiary" value="@rozmiarName" @(Model.SelectedRozmiary != null && Model.SelectedRozmiary.Contains(@rozmiarName) ? "checked" : "") />
+                            <label class="form-check-label" for="@rozmiarForName">@rozmiarName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (!Model.SelectedBrands.Any() && !Model.SelectedColors.Any() && Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Rozmiar == rozmiarName && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName && w.Subsubcategory.Name == Model.SubsubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@rozmiarForName" name="SelectedRozmiary" value="@rozmiarName" @(Model.SelectedRozmiary != null && Model.SelectedRozmiary.Contains(@rozmiarName) ? "checked" : "") />
+                            <label class="form-check-label" for="@rozmiarForName">@rozmiarName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+
+                else if (!Model.SelectedBrands.Any() && Model.SelectedColors.Any() && !Model.SelectedRozmiary.Any())
+                {
+                    iloscProduktow = Context.Products.Where(w => w.Rozmiar == rozmiarName && Model.SelectedColors.Any(a => a == w.Kolor) && w.Category.Name == Model.CategoryName && w.Subcategory.Name == Model.SubcategoryName && w.Subcategory.Name == Model.SubcategoryName && w.Subsubcategory.Name == Model.SubsubcategoryName).ToList().Count;
+                    if (iloscProduktow > 0)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="@rozmiarForName" name="SelectedRozmiary" value="@rozmiarName" @(Model.SelectedRozmiary != null && Model.SelectedRozmiary.Contains(@rozmiarName) ? "checked" : "") />
+                            <label class="form-check-label" for="@rozmiarForName">@rozmiarName | </label>
+                            <span>@iloscProduktow</span>
+                        </div>
+                    }
+                }
+            }
+        }
+
+
+
+    }
+</div>
+
+
+
+<input type="submit" value="Filtruj" />

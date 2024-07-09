@@ -1,0 +1,79 @@
+﻿@model List<KoszykItem>
+
+@{
+    int index = 0;
+}
+
+
+<!-- jeżeli są elementy w koszyku to je wyświetl, w przeciwnym razie pokaż ikonę -->
+@if (Model.Count > 0)
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Lp</th>
+                <th>Zdjęcie</th>
+                <th>Nazwa</th>
+                <th>Ilość</th>
+                <th>Suma</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var koszykItem in Model)
+            {
+                index++;
+
+                <tr>
+                    <td>@index.</td>
+
+                    <td>
+                        <div class="image w-70px h-70px">
+                            @*@if (koszykItem.Product.PhotosProduct != null && koszykItem.Product.PhotosProduct.Any())
+                            {
+                                <img src="@koszykItem.Product.PhotosProduct[0].Path" />
+                            }*@
+                        </div>
+                    </td>
+
+                    <td>
+                        @koszykItem.Product.Name
+                    </td>
+
+                    <td>
+                        @koszykItem.Ilosc x
+                    </td>
+
+
+                    <td>
+                        @{
+                            string price = $"{koszykItem.Suma.ToString("N2")}";
+                            <span>@price</span>
+                        }
+                    </td>
+
+                    <td>
+                        <a asp-action="Delete" asp-controller="Koszyk" asp-route-koszykItemId="@koszykItem.KoszykItemId" class="deleteButton">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="p-20 w-100 df-sb">
+        <div></div>
+        <div class="db">
+            <a asp-action="OrderFormularz" asp-controller="Orders" class="editButton p-10">Do kasy</a>
+            <a asp-action="Index" asp-controller="Home" class="editButton p-10">Kontynuuj zakupy</a>
+        </div>
+    </div>
+}
+else
+{
+    <div class="centerxy">
+        W Twoim koszyku nie ma jeszcze żadnych pozycji.
+        <a asp-action="Index" asp-controller="Home" style="padding: 10px; color: white; background-color:deepskyblue; border-radius: 50px; margin: 20px;">
+            Przejdź do sklepu
+        </a>
+    </div>
+}

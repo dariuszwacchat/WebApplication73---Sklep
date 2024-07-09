@@ -1,0 +1,110 @@
+﻿@model OrderConfirmationViewModel
+
+@{ 
+    int index = 0;
+    Client c = Model.Client;
+    Order o = Model.Order;
+}
+
+<div class="db">
+    <div>
+        @if (Model.KoszykItems.Count > 0)
+        {
+            <table>
+                <thead>
+                    <tr>
+                        <th>Lp</th>
+                        <th>Zdjęcie</th>
+                        <th>Nazwa</th>
+                        <th>Ilość</th>
+                        <th>Suma</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var koszykItem in Model.KoszykItems)
+                    {
+                        index++;
+
+                        <tr>
+                            <td>@index.</td>
+
+                            <td>
+                                <div class="image w-70px h-70px">
+                                    @*@if (koszykItem.Product.PhotosProduct != null && koszykItem.Product.PhotosProduct.Any())
+                                    {
+                                        <img src="@koszykItem.Product.PhotosProduct[0].Path" />
+                                    }*@
+                                </div>
+                            </td>
+
+                            <td>
+                                @koszykItem.Product.Name
+                            </td>
+
+                            <td>
+                                @koszykItem.Ilosc x
+                            </td>
+
+
+                            <td>
+                                @{
+                                    string price = $"{koszykItem.Suma.ToString("N2")}";
+                                    <span>@price</span>
+                                }
+                            </td>
+
+                            <td>
+                                <a asp-action="Delete" asp-controller="Koszyk" asp-route-koszykItemId="@koszykItem.KoszykItemId" class="deleteButton">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table> 
+        }
+    </div>
+
+    <div class="df">
+
+        <div class="w-50 db">
+            <h2>Dane kontaktowe</h2>
+            <p>Telefon komórkowy: @c.Telefon</p>
+            <p>Email: @c.Email</p>
+
+            <h2>Twoje dane</h2>
+            <p>@c.Imie @c.Nazwisko</p>
+            <p>@c.Ulica</p>
+            <p>@c.Miejscowosc @c.KodPocztowy</p>
+            <p>@c.Kraj</p>
+        </div>
+
+        <div class="w-50 db">
+            <h2>Dane do wysyłki</h2>
+            <p>@c.Imie @c.Nazwisko</p>
+            <p>@c.Ulica</p>
+            <p>@c.Miejscowosc @c.KodPocztowy</p>
+            <p>@c.Kraj</p>
+
+            <p>Sposób płatności: @o.SposobPlatnosci</p>
+            <p>Sposób wysyłki: @o.SposobWysylki</p>
+            <p>Sposób wysyłki: 1 dzień</p>
+
+            <p>Łączny koszt: @o.Suma</p>
+        </div>
+    </div>
+
+
+    <div class="p-20 b1 bg-white shadow1">
+        Po złożeniu zamówienia otrzymają Państwo na wskazany adres e-mail wiadomość informującą o kolejnych etapach realizacji zamówienia. Dodatkowo może zdarzyć się również sytuacja, że zadzwonimy do Państwa ustalając szczegóły realizacji zamówienia.
+    </div>
+
+    <div class="df">
+        <a asp-action="OrderPayments" 
+           asp-controller="Orders"
+           asp-route-SposobPlatnosci="@o.SposobPlatnosci"
+           asp-route-SposobWysylki="@o.SposobWysylki"
+           class="button-4">Poprzedni krok</a>
+
+        <a asp-action="Confirm" asp-controller="Orders" class="editButton">Składam zamówienie i płacę</a>
+    </div>
+</div>

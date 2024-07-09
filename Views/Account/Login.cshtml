@@ -1,0 +1,27 @@
+﻿@model LoginViewModel
+
+@{
+    string password = "SDG%$@5423sdgagSDert";
+}
+
+<h3>@password</h3>
+
+<form method="post" asp-action="Login" asp-controller="Account">
+    <div as asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Password"></label>
+        <input asp-for="Password" value="@password" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <input type="submit" value="Zaloguj" class="btn btn-primary" />
+
+    
+    <p class="text-danger">@Model.LoginResult</p>
+   
+</form>

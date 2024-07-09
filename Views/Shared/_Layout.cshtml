@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WebApplication58</title>
+    <environment include="Development">
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
+    </environment>
+</head>
+<body>
+
+    <partial name="_topNavigation" />
+
+
+    <div class="w-1000px mt-10" style="margin: 10px auto;">
+        <partial name="_navigationInfo" />
+    </div>
+
+
+
+    <div class="centerx"
+         style="margin: 0 auto;">
+        <div class="w-1000px">
+            <div class="w-100 p-10">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <partial name="_footer" />
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

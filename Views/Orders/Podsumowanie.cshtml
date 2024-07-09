@@ -1,0 +1,142 @@
+﻿@*@model PodsumowanieViewModel
+
+@{
+    int index = 0;
+}
+
+
+<div class="df">
+
+    <div class="w-250px">
+        <div class="w-250px db">
+            <partial name="_leftNavigationLogin" />
+        </div>
+    </div>
+
+
+    <div class="w-100">
+        <div class="db">
+
+            <h1>Kupowane przedmioty</h1>
+
+            <div class="w-100">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Lp</th>
+                            <th>Zdjęcie</th>
+                            <th>Nazwa</th>
+                            <th>Ilość</th>
+                            <th>Cena</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var koszykItem in Model.KoszykItems)
+                        {
+                            index++;
+
+                            <tr>
+                                <td>@index.</td>
+
+                                <td>
+                                    <div class="image w-70px h-70px">
+                                        @if (koszykItem.Product.PhotosProduct != null && koszykItem.Product.PhotosProduct.Any())
+                                        {
+                                            <img src="@koszykItem.Product.PhotosProduct[0].Path" />
+                                        }
+                                                                    </div>
+                                </td>
+
+                                <td>
+                                    @koszykItem.Product.Name
+                                </td>
+
+                                <td>
+                                    @{
+                                        int iloscSuma = 0;
+                                        iloscSuma += koszykItem.Ilosc;
+                                        string iloscSumaString = $"x{iloscSuma}";
+                                        <span>@iloscSumaString</span>
+                                    }
+                                </td>
+
+
+                                <td>
+                                    @{
+                                        string priceSuma = $"{koszykItem.Suma.ToString("N2")} zł";
+                                        <span>@priceSuma</span>
+                                    }
+                                </td>
+                                <td>
+                                    <a asp-action="Delete" asp-controller="Koszyk" asp-route-koszykItemId="@koszykItem.KoszykItemId" class="deleteButton">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                @{
+                                    try
+                                    {
+                                        double sumaSuma = Model.KoszykItems.Select(s => s.Suma).Sum();
+                                        string sumaSumaString = $"{sumaSuma.ToString("N2")} zł";
+                                        <span>@sumaSumaString</span>
+                                    }
+                                    catch { }
+                                }
+                            </td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+
+
+
+            <h1>Dane do wysyłki</h1>
+            <table class="tablePodsumowanie">
+                <tr>
+                    <td>Imię</td>
+                    <td>@Model.User.Imie</td>
+                </tr>
+                <tr>
+                    <td>Nazwisko</td>
+                    <td>@Model.User.Nazwisko</td>
+                </tr>
+                <tr>
+                    <td>Telefon</td>
+                    <td>@Model.User.Telefon</td>
+                </tr>
+                <tr>
+                    <td>Adres wysyłki</td>
+                    <td>
+                        <div class="db">
+                            <span>@Model.User.Ulica</span>
+                            <span>@Model.User.Miejscowość</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td>@Model.User.Email</td>
+                </tr>
+            </table>
+
+
+            <div class="p-20 w-100 df-sb">
+                <div></div>
+                <a asp-action="Create" asp-controller="Orders" class="editButton p-10">Zatwierdź</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+*@

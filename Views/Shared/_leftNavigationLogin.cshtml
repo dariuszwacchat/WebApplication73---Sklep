@@ -1,0 +1,71 @@
+﻿
+@{
+
+    if (SignInManager.IsSignedIn(User))
+    {
+        var user = await Context.Users
+            .Include (i=> i.Client)
+                .ThenInclude (t=> t.Favourites)
+            .Include (i=> i.Client)
+                .ThenInclude (t=> t.Orders)
+            .FirstOrDefaultAsync (w=> w.UserName == User.Identity.Name);
+
+
+        int ilosc = 0;
+        int iloscOrders = 0;
+
+        if (user.Client != null)
+        {
+            if (user.Client.Favourites != null)
+            {
+                ilosc = user.Client.Favourites.Count;
+            }
+
+            if (user.Client.Orders != null)
+            {
+                iloscOrders = user.Client.Orders.Count;
+            }
+        }
+
+
+
+        if (user != null)
+        {
+            <div class="db fs-12">
+                <p class="navigacjaHeader">Navigacja</p>
+
+                <ul class="db leftNavigation">
+                    <li>
+                        <a asp-action="HistoriaTransakcji" asp-controller="Account">Historia transakcji</a>
+                    </li>
+                    <li>
+                        <a asp-action="HistoriaTransakcji" asp-controller="Account">Historia logowań</a>
+                    </li>
+                    <li>
+                        <a asp-action="Index" asp-controller="Orders">Zamówienia (@iloscOrders)</a>
+                    </li>
+                    <li>
+                        <a asp-action="Index" asp-controller="Koszyk">Koszyk ()</a>
+                    </li>
+                    <li>
+                        <a asp-action="Ulubione" asp-controller="Account">Ulubione (@ilosc)</a>
+                    </li>
+                    <li>
+                        <a asp-action="DaneOsobowe" asp-controller="Account">Twoje Dane osobowe</a>
+                    </li>
+                    <li>
+                        <a asp-action="ChangePassword" asp-controller="Account">Change password</a>
+                    </li>
+                    <li>
+                        <a asp-action="Logout" asp-controller="Account">Wyloguj</a>
+                    </li>
+                    @*<li>
+            <a asp-action="DeleteAccount" asp-controller="Account">Delete account</a>
+        </li> *@
+                </ul>
+            </div>
+        }
+    }
+
+
+}

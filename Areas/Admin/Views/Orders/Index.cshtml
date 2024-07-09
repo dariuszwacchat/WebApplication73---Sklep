@@ -1,0 +1,277 @@
+﻿@model OrdersViewModel
+
+@{
+    int index = 0;
+    index = Model.PageSize * (Model.PageIndex - 1);
+}
+
+<form method="post" asp-action="Index" asp-controller="Orders">
+    <input type="hidden" asp-for="PageIndex" value="@Model.PageIndex" />
+     
+
+    <div class="df-sb centery p-20 mb-20 shadow border"> 
+
+        <!-- Wyszukiwarka -->
+        <div>
+            <input asp-for="q" />
+            <input type="submit" value="szukaj" class="button-6" />
+        </div>
+
+
+        <!-- Sortowanie -->
+        <div>
+            <select asp-for="SortowanieOption" asp-items='new SelectList(new List<string>() { "Zrealizowane", "Niezrealizowane", "Wszystkie" }, "Niezrealizowane")'></select>
+            <input type="submit" value="Sortuj" />
+        </div>
+    </div>
+
+
+    @if (Model.Paginator.Count > 0)
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>Lp</th>
+                    <th>Order id</th>
+                    <th>Ilość produktów [szt.]</th>
+                    <th>Suma zamówienia [zł]</th>
+                    <th>Status realizacji</th>
+                    <th>Osoba realizująca</th>
+                    <th>Data zamówienia</th>
+                    <th>Data realizacji</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in Model.Paginator)
+                {
+                    index++;
+
+                    <tr>
+                        <td>@index.</td>
+
+
+                        <td>@order.OrderId</td>
+
+
+                        <td>
+                            <span>@order.OrderItems.Select(s => s.Ilosc).Sum()</span>
+                        </td>
+
+
+                        <td>
+                            @order.Suma
+                        </td>
+
+
+
+                        <td>
+                            @order.StatusZamowienia
+                        </td>
+
+
+                        <td>
+                            @if (order.OsobaRealizujaca != null)
+                            {
+                                var osr = order.OsobaRealizujaca;
+                                <span>@osr.Client.Imie @osr.Client.Nazwisko</span>
+                            }
+                            else
+                            {
+                                <span>-</span>
+                            }
+                        </td>
+
+
+                        <td>
+                            @order.DataZamowienia.ToShortDateString()
+                        </td>
+
+
+                        <td>
+                            @if (order.DataRealizacji.ToShortDateString() != "01.01.0001")
+                            {
+                                @order.DataRealizacji.ToShortDateString()
+                            }
+                            else
+                            {
+                                <span>-</span>
+                            }
+                        </td>
+
+                        <td>
+                            <div class="db">
+
+                                <a asp-action="Edit"
+                                   asp-controller="Orders"
+                                   asp-route-orderId="@order.OrderId"
+                                   class="button-6 mb-5">
+                                    Zobacz szczegóły
+                                </a>
+
+                                <a asp-action="Delete"
+                                   asp-controller="Orders"
+                                   asp-route-id="@order.OrderId"
+                                   class="button-6">
+                                    Delete
+                                </a>
+
+
+                            </div>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="df-sb p-20 mt-20 mb-20 border shadow">
+            <div></div>
+
+            <div class="db">
+                <h2>Podsumowanie</h2>
+                <div class="df">
+                    <div class="db">
+                        <h5>Łączna ilość zamówień</h5>
+                        <span>@Model.Orders.Sum(so => so.OrderItems.Sum(si => si.Ilosc)) szt.</span>
+                    </div>
+                    <div class="db">
+                        <h5>Łączna suma zamówień</h5>
+                        <span>@Model.Orders.Sum(so => so.Suma) zł.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="centerxy">
+            W Twoim koszyku nie ma jeszcze żadnych pozycji.
+            <a asp-action="Index" asp-controller="Orders" asp-area="Admin" style="padding: 10px; color: white; background-color:deepskyblue; border-radius: 50px; margin: 20px;">
+                Przejdź do sklepu
+            </a>
+        </div>
+    }
+
+
+
+
+
+
+    <!-- Paginator -->
+    @{
+        bool hasPrevious = Model.Paginator.HasPreviousPage;
+        bool hasNext = Model.Paginator.HasNexPage;
+    }
+
+    <div class="df mt-30">
+        <div class="w-40 centery">
+
+            <div class="df centery">
+                <p>Pokaż</p>
+                <select asp-for="PageSize" asp-items='@new SelectList(new List<string> () { "5", "10", "15", "20" })' class="select-input"></select>
+                <input type="submit" value="Wybierz" class="button3" />
+            </div>
+
+        </div>
+
+        <div class="w-60 centery">
+            <div class="w-100 centery">
+                <div class="df fs-11 centery">
+                    @if (hasPrevious)
+                    {
+                        <a asp-action="Index"
+                           asp-controller="Orders"
+                           asp-route-PageSize="@Model.PageSize"
+                           asp-route-PageIndex="@(Model.Paginator.PageIndex - 1)"
+                           asp-route-q="@Model.q"
+                           asp-route-SortowanieOption="@Model.SortowanieOption"
+                           class="button3">
+                            Prev
+                        </a>
+                    }
+                    else
+                    {
+                        <a asp-action="Index"
+                           asp-controller="Orders"
+                           class="button3 disable-link">
+                            Prev
+                        </a>
+                    }
+
+
+                    <div class="df ml-10 mr-10">
+                        @{
+                            int length = Model.PageIndex + Model.Paginator.Count;
+
+                            string style = "padding: 3px 10px; border: 1px solid lightgray; background-color: white;";
+
+
+                            Model.Start = 1;
+                            Model.End = Model.PageSize + 1;
+                            int srodek = (int)Math.Round ((double) (Model.PageSize/2));
+
+                            if (Model.PageIndex > srodek)
+                            {
+                                Model.Start = Model.PageIndex - (srodek - 1);
+                                Model.End = Model.PageIndex + Model.PageSize - srodek;
+                            }
+
+
+
+                            for (var i = Model.Start; i < Model.End; i++)
+                            {
+                                if (i == Model.PageIndex)
+                                {
+                                    style = "padding: 7px 10px; background-color: lightgray; color: black; font-weight: bold";
+                                }
+                                else
+                                {
+                                    style = "padding: 7px 10px; background-color: white;";
+                                }
+                                if (i <= Model.Paginator.TotalPage)
+                                {
+                                    <a asp-action="Index"
+                                       asp-controller="Orders"
+                                       asp-route-PageSize="@Model.PageSize"
+                                       asp-route-PageIndex="@i"
+                                       asp-route-q="@Model.q"
+                                       asp-route-SortowanieOption="@Model.SortowanieOption"
+                                       class="paginator-item"
+                                       style="@style">
+                                        @i
+                                    </a>
+                                }
+                            }
+                        }
+                    </div>
+
+
+                    @if (hasNext)
+                    {
+                        <a asp-action="Index"
+                           asp-controller="Orders"
+                           asp-route-PageSize="@Model.PageSize"
+                           asp-route-PageIndex="@(Model.Paginator.PageIndex + 1)"
+                           asp-route-q="@Model.q"
+                           asp-route-SortowanieOption="@Model.SortowanieOption"
+                           class="button3">
+                            Next
+                        </a>
+                    }
+                    else
+                    {
+                        <a asp-action="Index"
+                           asp-controller="Orders"
+                           class="button3 disable-link">
+                            Next
+                        </a>
+                    }
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>

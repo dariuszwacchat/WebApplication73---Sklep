@@ -1,0 +1,202 @@
+﻿@model CategoriesViewModel
+
+@{
+    int index = 0;
+    index = Model.PageSize * (Model.PageIndex - 1);
+}
+
+<form method="post" asp-action="Index" asp-controller="Categories" asp-area="Admin">
+
+    <div class="df-sb centery p-20 mb-20 shadow border">
+        <div class="mb-20 df-sb">
+            <a asp-action="Create" asp-controller="Categories" class="buttonAction">+ dodaj nowy kategorię</a>
+            <div></div>
+        </div>
+
+        <!-- Wyszukiwarka -->
+        <div>
+            <input asp-for="q" />
+            <input type="submit" value="szukaj" class="button-6" />
+        </div>
+
+
+        <!-- Sortowanie -->
+        <div>
+            <select asp-for="SortowanieOption" asp-items='new SelectList(new List<string>() { "Nazwa A-Z", "Nazwa Z-A" }, "Nazwa A-Z")'></select>
+            <input type="submit" value="Sortuj" />
+        </div>
+    </div>
+
+
+
+
+    <table cellpadding="0" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Lp</th>
+                <th class="w-100">Wyświetlana nazwa</th>
+                <th>Subcategory</th>
+                <th>Odwiedzin</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var category in Model.Paginator)
+            {
+                index++;
+                <tr>
+                    <td>
+                        <span>@index.</span>
+                    </td>
+                    <td>
+                        <span>
+                            @category.FullName
+                        </span>
+                    </td>
+                    <td>
+                        @if (category.Subcategories != null)
+                        {
+                            <a asp-action="Subcategories" asp-controller="Categories" asp-route-categoryId="@category.CategoryId" class="borderCount">
+                                @category.Subcategories.Count
+                            </a>
+                        }
+                    </td>
+                    <td>
+                        <span class="borderCount">
+                            @category.IloscOdwiedzin
+                        </span>
+                    </td>
+                    <td>
+                        <div class="db">
+                            <a asp-action="Delete" asp-controller="Categories" asp-route-id="@category.CategoryId" class="deleteButton">Delete</a>
+                            <a asp-action="Edit" asp-controller="Categories" asp-route-id="@category.CategoryId" class="editButton">Edit</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+
+
+
+
+
+
+    <!-- Paginator -->
+    @{
+        bool hasPrevious = Model.Paginator.HasPreviousPage;
+        bool hasNext = Model.Paginator.HasNexPage;
+    }
+
+    <div class="df mt-30">
+        <div class="w-40 centery">
+
+            <div class="df centery">
+                <p>Pokaż</p>
+                <select asp-for="PageSize" asp-items='@new SelectList(new List<string> () { "5", "10", "15", "20" })' class="select-input"></select>
+                <input type="submit" value="Wybierz" class="button3" />
+            </div>
+
+        </div>
+
+        <div class="w-60 centery">
+            <div class="w-100 centery">
+                <div class="df fs-11 centery">
+                    @if (hasPrevious)
+                    {
+                        <a asp-action="Index"
+                           asp-controller="Categories"
+                           asp-route-PageSize="@Model.PageSize"
+                           asp-route-PageIndex="@(Model.Paginator.PageIndex - 1)"
+                           asp-route-q="@Model.q"
+                           asp-route-SortowanieOption="@Model.SortowanieOption"
+                           class="button3">
+                            Prev
+                        </a>
+                    }
+                    else
+                    {
+                        <a asp-action="Index"
+                           asp-controller="Categories"
+                           class="button3 disable-link">
+                            Prev
+                        </a>
+                    }
+
+
+                    <div class="df ml-10 mr-10">
+                        @{
+                            int length = Model.PageIndex + Model.Paginator.Count;
+
+                            string style = "padding: 3px 10px; border: 1px solid lightgray; background-color: white;";
+
+
+                            Model.Start = 1;
+                            Model.End = Model.PageSize + 1;
+                            int srodek = (int)Math.Round ((double) (Model.PageSize/2));
+
+                            if (Model.PageIndex > srodek)
+                            {
+                                Model.Start = Model.PageIndex - (srodek - 1);
+                                Model.End = Model.PageIndex + Model.PageSize - srodek;
+                            }
+
+
+
+                            for (var i = Model.Start; i < Model.End; i++)
+                            {
+                                if (i == Model.PageIndex)
+                                {
+                                    style = "padding: 7px 10px; background-color: lightgray; color: black; font-weight: bold";
+                                }
+                                else
+                                {
+                                    style = "padding: 7px 10px; background-color: white;";
+                                }
+                                if (i <= Model.Paginator.TotalPage)
+                                {
+                                    <a asp-action="Index"
+                                       asp-controller="Categories"
+                                       asp-route-PageSize="@Model.PageSize"
+                                       asp-route-PageIndex="@i"
+                                       asp-route-q="@Model.q"
+                                       asp-route-SortowanieOption="@Model.SortowanieOption"
+                                       class="paginator-item"
+                                       style="@style">
+                                        @i
+                                    </a>
+                                }
+                            }
+                        }
+                    </div>
+
+
+                    @if (hasNext)
+                    {
+                        <a asp-action="Index"
+                           asp-controller="Categories"
+                           asp-route-PageSize="@Model.PageSize"
+                           asp-route-PageIndex="@(Model.Paginator.PageIndex + 1)"
+                           asp-route-q="@Model.q"
+                           asp-route-SortowanieOption="@Model.SortowanieOption"
+                           class="button3">
+                            Next
+                        </a>
+                    }
+                    else
+                    {
+                        <a asp-action="Index"
+                           asp-controller="Categories"
+                           class="button3 disable-link">
+                            Next
+                        </a>
+                    }
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,30 @@
+﻿
+input, select {
+    border: 1px solid rgb(120,120,120);
+    outline: none;
+}
+
+
+.leftNavigationad { 
+}
+.leftNavigationad:hover {
+}
+
+.leftNavigationad li {  
+    padding: 7px 15px;
+}
+    .leftNavigationad li:hover {
+        background-color: rgb(240,240,240);
+    }
+
+
+
+.tablea tr td {
+    min-width: 150px;
+}
+.tablea tr td input {
+    width: 100%;
+}
+.tablea tr td select {
+    width: 100%;
+}

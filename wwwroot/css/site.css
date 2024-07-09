@@ -1,0 +1,501 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a {
+    padding: 0px;
+    margin: 0px;
+}
+
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+/* Provide sufficient contrast against white background */
+a {
+  color: #0366d6;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    font-size: 12px;
+    background-color: rgb(245,245,245);
+}
+@media (min-width: 768px) {
+    html {
+        font-size: 12px;
+    }
+}
+
+.border-top {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+ 
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+} 
+
+
+.category { 
+    border: 1px solid rgb(230,230,230);
+}
+.category:hover { 
+    border: 1px solid rgb(130,130,130);
+}
+
+
+
+ 
+/* Top navigation --------------------------------------------------------------------- */
+ 
+ 
+
+.categoryUl {
+    position: relative;
+}
+  
+.categoryLi .categoryA {
+    font-size: 12px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding: 0px 20px;
+}
+.categoryLi:hover .categoryA {
+    font-size: 12px;
+    text-decoration: none;
+    color: rgba(20,20,20);
+}
+
+.categoryLi:hover .subNavigation {
+    display: block; 
+} 
+
+.subNavigation {
+    display: none;
+    position: absolute;
+    left: 0px;
+    top: 3px;
+    background-color: lightgray;
+    width: 100%; 
+    margin-top: 47px; 
+    padding-bottom: 20px;
+} 
+    .subNavigation .subcategoryLi .subcategoryA {
+        font-size: 15px; 
+        font-weight: bold;  
+        margin-bottom: 15px; 
+        color: black;
+    } 
+    .subNavigation .subcategoryLi .subcategoryA:hover {
+        text-decoration: none;
+    }
+    .subNavigation .subcategoryLi {
+        display: block;
+        padding: 15px;
+    }
+        .subNavigation .subcategoryLi .subsubcategoryA {
+            font-size: 11px;
+            margin-left: 6px;
+            display: flex;
+            margin-top: 3px;
+            color: rgb(35,35,35);
+        }
+        .subNavigation .subcategoryLi .subsubcategoryA:hover {
+            text-decoration: none;
+            color: rgb(100,100,100);
+        }
+     
+
+
+
+
+
+
+    .postDetailsLink:hover {
+        text-decoration: none;
+        color: firebrick;
+    }
+.postDetailsLink:hover .black {
+    opacity: .3;
+}
+.black { 
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: black; 
+    opacity: 0;
+    transition: ease all .5s;
+}
+
+
+.headerName {
+    font-size: 25px;
+    font-weight: bold;  
+    margin-bottom: 20px;
+}
+.headerName::before {
+    content: "";
+    position: absolute;
+    width: 15px;
+    height: 30px; 
+    background-color: firebrick;
+}
+
+.headerName span {
+    margin-left: 20px;
+}
+
+table {
+    padding: 0px;
+    margin: 0px;
+}
+thead {
+    color: white;
+} 
+table th {
+    padding: 10px;
+    background-color: rosybrown; 
+}
+td {
+    border-bottom: 1px solid rgb(225,225,225);
+    color: black;
+} 
+tr:hover {
+    background-color: rgb(240,240,240);
+}
+td {
+    padding: 10px; 
+    align-items: center;
+    text-align: center;
+}
+
+.categoryName {
+    min-width: 200px; 
+    text-align: right;
+}
+.categoryInput {
+    width: 100%; 
+}
+.categoryInput input {
+    width: 80%;
+}
+
+
+
+/* Left navigation --------------------------------------------------------------------- */
+
+.headerLeftNavigation {
+    margin-bottom: 10px;
+    padding: 10px 10px;
+    border-bottom: 1px solid lightgray;
+}
+
+.navigacjaHeader {
+    background-color: rgb(225,225,225);
+    padding: 10px 10px;
+    font-weight: bold;
+    font-size: 12px;
+    text-decoration: underline;
+}
+
+.leftNavigation {
+    border-left: 1px solid rgb(220,220,220);
+    border-right: 1px solid rgb(220,220,220);
+    border-top: 1px solid rgb(220,220,220);
+}
+.leftNavigation li {
+    padding: 8px 0px;
+    border-bottom: 1px solid rgb(220,220,220);
+}
+    .leftNavigation li:hover {
+        background-color: rgb(245,245,245);
+    }
+    .leftNavigation li:hover a {
+        color: black;
+    }
+.leftNavigation li a {
+    margin: 0px 10px;
+}
+
+.filterItems > div {
+    padding: 4px;
+    background-color: rgb(230,230,230);
+    display: flex; 
+    width: 100%;
+    border-radius: 3px;
+    margin-bottom: 1px;
+}
+    .filterItems > div > span {
+        min-width: 80px;
+    }
+    .filterItems > div > a {
+        min-width: 80px;
+    }
+    .filterItems > div > input {
+        min-width: 80px;
+    }
+
+/* Card --------------------------------------------------------------------- */
+.card {
+    margin: 10px;
+    border-radius: 0px;
+    border: 1px solid rgb(210,210,210);
+    background-color: white;
+    transition: ease all .3s;
+}
+    .card:hover {
+        border: 1px solid rgb(150,150,150);
+        box-shadow: 1px 1px 20px rgba(100,100,100,.2);
+    }
+    .card .priceBorder {
+        padding: 1px;
+        border-radius: 0px;
+        background-color: rgb(140,140,140);
+        color: white;
+    }
+    .card .doKoszyka {
+        padding: 5px 0px;
+        border-radius: 0px;
+        background-color: navy;
+        color: white;
+        text-align: center;
+        border: 1px solid gray;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+    }
+        .card .doKoszyka:hover {
+            color: rgb(200,200,200);
+        } 
+
+
+
+
+
+
+
+
+
+    .tablePodsumowanie tr td {
+        text-align: right;
+    }
+
+
+
+
+
+/* SortowanieBar --------------------------------------------------------------------- */
+
+.sortowanieBar { 
+    background-color: White; 
+    height: 30px;
+    margin-left: 10px; 
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding-right: 10px;
+}
+.sortowanieBar select {
+    margin: 0px 10px;
+}
+
+
+
+
+
+/* Footer --------------------------------------------------------------------- */
+.footer {
+    background-color: white;
+    border-top: 1px solid rgb(220,220,220);
+    padding: 15px 0px 40px 0px;
+}
+
+.footerUl {
+    width: 200px;
+    margin: 0px 10px;
+}
+.footerUl li {
+    font-size: 11px;
+    padding: 1px 0px;
+} 
+.footerUl li:first-child {
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 12px; 
+}  
+.footerUl li a {
+    display: flex;
+}
+.footerUl li a:hover {
+    color: Highlight;
+    text-decoration: none;
+}
+
+.newsletter > p {
+    margin-bottom: 5px;
+}
+.newsletter input {
+    margin-bottom: 5px;
+}
+.newsletter a {
+    margin-top: 5px;
+    background-color: navy;
+    color: white;
+    font-weight: bold;
+}
+
+
+  
+table {
+    border-collapse: collapse;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+th, td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 12px;
+    transition: background-color 0.3s;
+}
+
+th {
+    background: linear-gradient(to bottom, #45a049, #4CAF50);
+    color: white;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+
+/* Edytor html --------------------------------------------------------------------- */
+
+#editor-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 10px;
+    width: 500px;
+}
+
+#editor {
+    border: 1px solid #ccc;
+    padding: 10px;
+    height: 300px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: white;
+    resize: vertical;
+    outline: none;
+}
+
+.toolbar {
+    display: flex;
+    flex-wrap: wrap; 
+    width: 100%;
+    background-color: lightgray;
+    padding: 0px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+    .toolbar button,
+    .toolbar select,
+    .toolbar input[type="color"],
+    .toolbar input[type="file"] {
+        margin: 2px;
+        padding: 2px;
+        cursor: pointer;
+        font-size: 12px;
+        border: none;
+        border-radius: 3px;
+        background-color: #007BFF;
+        color: #fff;
+        min-width: 70px;
+        transition: background-color 0.3s;
+    }
+
+        .toolbar button:hover,
+        .toolbar select:hover,
+        .toolbar input[type="color"]:hover,
+        .toolbar input[type="file"]:hover {
+            background-color: #0056b3;
+        }
+
+    .toolbar select,
+    .toolbar input[type="color"],
+    .toolbar input[type="file"] {
+        -moz-appearance: none;
+        -webkit-appearance: none;
+    }
+
+
+/* Różne --------------------------------------------------------------------- */
+
+.checkBoxContainer {
+    height: 100px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: white;
+}
+
+.container-payment-options {
+    display: none;
+    padding: 30px;
+    margin: 10px;
+}
+
+#koszyk-animacja {
+    width: 20px;
+    height: 20px;
+    background-color: green;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}

@@ -1,0 +1,120 @@
+﻿@model Order
+
+@{
+    int index = 0; 
+    Client c = Model.Client;
+    Order o = Model;
+
+    var zalogowany = await UserService.GetUser(User);
+}
+
+<h1>@Model.OrderId</h1>
+
+<div class="db">
+    <div>
+        @if (Model.OrderItems.Count > 0)
+        {
+            <table>
+                <thead>
+                    <tr>
+                        <th>Lp</th>
+                        <th>Zdjęcie</th>
+                        <th>Nazwa</th>
+                        <th>Ilość</th>
+                        <th>Suma</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var orderItem in Model.OrderItems)
+                    {
+                        index++;
+
+                        <tr>
+                            <td>@index.</td>
+
+                            <td>
+                                <div class="image w-70px h-70px">
+                                    @*@if (orderItem.Product.PhotosProduct != null && orderItem.Product.PhotosProduct.Any())
+                                        {
+                                            <img src="@orderItem.Product.PhotosProduct[0].Path" />
+                                        }*@
+                                </div>
+                            </td>
+
+                            <td>
+                                @orderItem.Product.Name
+                            </td>
+
+                            <td>
+                                @orderItem.Ilosc x
+                            </td>
+
+
+                            <td>
+                                @{
+                                    string price = $"{orderItem.Suma.ToString("N2")}";
+                                    <span>@price</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+
+    <div class="df">
+
+        <div class="w-50 db">
+            <h2>Dane kontaktowe</h2>
+            <p>Telefon: @c.Telefon</p>
+            <p>Email: @c.Email</p>
+
+            <h2>Twoje dane</h2>
+            <p>@c.Imie @c.Nazwisko</p>
+            <p>@c.Ulica</p>
+            <p>@c.Miejscowosc @c.KodPocztowy</p>
+            <p>@c.Kraj</p>
+        </div>
+
+        <div class="w-50 db">
+            <h2>Dane do wysyłki</h2>
+            <p>@c.Imie @c.Nazwisko</p>
+            <p>@c.Ulica</p>
+            <p>@c.Miejscowosc @c.KodPocztowy</p>
+            <p>@c.Kraj</p>
+
+            <p>Sposób płatności: @o.SposobPlatnosci</p>
+            <p>Sposób wysyłki: @o.SposobWysylki</p>
+            <p>Sposób wysyłki: 1 dzień</p>
+
+            <p>Łączny koszt: @o.Suma</p>
+        </div>
+    </div>
+
+    @if (zalogowany != null)
+    {
+        if (zalogowany.Client != null)
+        {
+            <div class="m-30">
+                <h2>Osoba realizująca zamówienie</h2>
+                <p>Imię: <b>@zalogowany.Client.Imie</b></p>
+                <p>Nazwisko: <b>@zalogowany.Client.Nazwisko</b></p>
+            </div>
+        }
+    }
+
+
+    <div class="p-20 shadow border mt-20 mb-20">
+        <form method="post" asp-action="Edit" asp-controller="Orders" asp-area="Admin">
+            <input type="hidden" asp-for="OrderId" value="@Model.OrderId" />
+            <input type="hidden" asp-for="ClientId" value="@Model.ClientId" />
+
+            <div class="df centery">
+                <span>Zmień status wysyłki na</span>
+                <select asp-for="StatusZamowienia" asp-items='@new SelectList(Enum.GetNames(typeof(StatusZamowienia)),Model.StatusZamowienia)'></select>
+                <input type="submit" value="Zatwierdź" class="editButton p-10 radius-50" />
+            </div>
+        </form>
+    </div>
+</div>

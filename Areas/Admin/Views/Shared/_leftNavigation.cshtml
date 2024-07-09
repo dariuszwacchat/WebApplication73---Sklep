@@ -1,0 +1,116 @@
+﻿
+<div class="db fs-12 p-10">
+    <p class="navigacjaHeader">Navigacja</p>
+
+    <ul class="db leftNavigation">
+        <li>
+            <a asp-area="Admin" asp-action="Index" asp-controller="Users" class="link">Konta użytkowników</a>
+        </li>
+        <li>
+            <a asp-area="Admin" asp-action="Index" asp-controller="Roles" class="link">Role</a>
+        </li>
+        <li>
+            <a asp-area="Admin" asp-action="Index" asp-controller="Clients" class="link">Klienci</a>
+        </li>
+        <li>
+            <a asp-area="Admin" asp-action="Index" asp-controller="Orders" class="link">Zamówienia</a>
+        </li>
+        <li>
+            <a asp-area="Admin" asp-action="Index" asp-controller="Categories" class="link">Kategorie</a>
+        </li>
+        <li>
+            <a asp-area="Admin" asp-action="Index" asp-controller="Subcategories" class="link">Subkategorie</a>
+        </li>
+        <li>
+            <a asp-area="Admin" asp-action="Index" asp-controller="Subsubcategories" class="link">Subsubkategorie</a>
+        </li>
+        <li>
+            <a asp-area="Admin" asp-action="Index" asp-controller="Products" class="link">Produkty</a>
+        </li>
+        <li>
+            <a asp-area="Admin" asp-action="Index" asp-controller="Marki" class="link">Marki</a>
+        </li>
+        <li>
+            <a asp-area="Admin" asp-action="Index" asp-controller="Rozmiary" class="link">Rozmiary</a>
+        </li>
+
+        <li>
+            <a asp-area="Admin" asp-action="Statystyki" asp-controller="Home" class="link">Statystyki odwiedzin</a>
+        </li>
+        <li>
+            <a asp-area="Admin" asp-action="ChangePassword" asp-controller="Account" class="link">Change password</a>
+        </li>
+        <li>
+            <a asp-area="Admin" asp-action="Logout" asp-controller="Account" class="link">Logout</a>
+        </li>
+
+        <li>
+            <a asp-area="" asp-action="Index" asp-controller="Home" class="link">Back to website</a>
+        </li>
+    </ul>
+</div>
+
+@*
+    @{
+        var users = await Context.Users.ToListAsync ();
+        var roles = await Context.Roles.ToListAsync ();
+        var clients = await Context.Clients.ToListAsync ();
+        var categories = await Context.Categories.Include (i=>i.Subcategories).ToListAsync ();
+        var subcategories = await Context.Subcategories.ToListAsync ();
+        var subsubcategories = await Context.Subsubcategories.ToListAsync ();
+        var products = await Context.Products.ToListAsync ();
+        var orders = await Context.Orders.ToListAsync ();
+        var marki = await Context.Marki.ToListAsync ();
+        var rozmiary = await Context.Sizes.ToListAsync ();
+    }
+
+    <div class="db fs-12 p-10">
+        <p class="navigacjaHeader">Navigacja</p>
+
+        <ul class="db leftNavigation">
+            <li>
+                <a asp-area="Admin" asp-action="Index" asp-controller="Users" class="link">Konta użytkowników (@users.Count)</a>
+            </li>
+            <li>
+                <a asp-area="Admin" asp-action="Index" asp-controller="Roles" class="link">Role (@roles.Count)</a>
+            </li>
+            <li>
+                <a asp-area="Admin" asp-action="Index" asp-controller="Clients" class="link">Klienci (@clients.Count)</a>
+            </li>
+            <li>
+                <a asp-area="Admin" asp-action="Index" asp-controller="Orders" class="link">Zamówienia (@orders.Count)</a>
+            </li>
+            <li>
+                <a asp-area="Admin" asp-action="Index" asp-controller="Categories" class="link">Kategorie (@categories.Count)</a>
+            </li>
+            <li>
+                <a asp-area="Admin" asp-action="Index" asp-controller="Subcategories" class="link">Subkategorie (@subcategories.Count)</a>
+            </li>
+            <li>
+                <a asp-area="Admin" asp-action="Index" asp-controller="Subsubcategories" class="link">Subsubkategorie (@subsubcategories.Count)</a>
+            </li>
+            <li>
+                <a asp-area="Admin" asp-action="Index" asp-controller="Products" class="link">Produkty (@products.Count)</a>
+            </li>
+            <li>
+                <a asp-area="Admin" asp-action="Index" asp-controller="Marki" class="link">Marki (@marki.Count)</a>
+            </li>
+            <li>
+                <a asp-area="Admin" asp-action="Index" asp-controller="Rozmiary" class="link">Rozmiary (@rozmiary.Count)</a>
+            </li>
+
+            <li>
+                <a asp-area="Admin" asp-action="Statystyki" asp-controller="Home" class="link">Statystyki odwiedzin</a>
+            </li>
+            <li>
+                <a asp-area="Admin" asp-action="ChangePassword" asp-controller="Account" class="link">Change password</a>
+            </li>
+            <li>
+                <a asp-area="Admin" asp-action="Logout" asp-controller="Account" class="link">Logout</a>
+            </li>
+
+            <li>
+                <a asp-area="" asp-action="Index" asp-controller="Home" class="link">Back to website</a>
+            </li>
+        </ul>
+    </div>*@

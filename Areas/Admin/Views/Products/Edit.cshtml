@@ -1,0 +1,111 @@
+﻿@model Product
+
+
+
+
+<form method="post" asp-action="Edit" asp-controller="Products" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="c-red"></div> 
+
+    <input type="hidden" asp-for="ProductId" />
+
+
+    <table class="tablea" cellspacing="0" cellpadding="0">
+        <tr>
+            <td>Nazwa</td>
+            <td class="db">
+                <input asp-for="Name" />
+                <span asp-validation-for="Name" class="c-red"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>Opis</td>
+            <td class="db">
+                <textarea asp-for="Description" class="w-100 h-70px"></textarea>
+                <span asp-validation-for="Description" class="c-red"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>Zdjęcie</td>
+            <td class="db">
+               <div class="df">
+                   <div class="w-50 db">
+                       @if (Model.PhotosProduct != null && Model.PhotosProduct.Any())
+                       {
+                           foreach (var photoProduct in Model.PhotosProduct)
+                           {
+                               <div class="image w-200px">
+                                   <partial name="_displayPhoto" model="@Tuple.Create(photoProduct.PhotoData)" />
+                               </div>
+                               <a asp-action="DeletePhoto"
+                                  asp-controller="Products"
+                                  asp-area="Admin"
+                                  asp-route-productId="@Model.ProductId"
+                                  asp-route-photoProductId="@photoProduct.PhotoProductId">
+                                   Usuń zdjęcie
+                               </a>
+                           }
+                       }
+                   </div>
+
+                   <div class="w-50"> 
+                       <input type="file" name="files" multiple />
+                   </div>
+               </div>
+            </td>
+        </tr>
+        <tr>
+            <td>Cena</td>
+            <td class="db">
+                <input asp-for="Price" />
+                <span asp-validation-for="Price" class="c-red"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>Dostępna ilość</td>
+            <td class="db">
+                <input asp-for="Quantity" />
+                <span asp-validation-for="Quantity" class="c-red"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>Zniżka w %</td>
+            <td class="db">
+                <input asp-for="Znizka" />
+                <span asp-validation-for="Znizka" class="c-red"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>Marka</td>
+            <td class="db">
+                <select asp-for="MarkaId" asp-items="ViewBag.markiIdList"></select>
+                <span asp-validation-for="Marka" class="c-red"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>Kategoria</td>
+            <td class="db">
+                <select asp-for="CategoryId" asp-items="ViewBag.categoriesIdList"></select>
+                <span asp-validation-for="Category" class="c-red"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>Subkategoria</td>
+            <td class="db">
+                <select asp-for="SubcategoryId" asp-items="ViewBag.subcategoriesIdList"></select>
+                <span asp-validation-for="SubcategoryId" class="c-red"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>Subsubkategoria</td>
+            <td class="db">
+                <select asp-for="SubsubcategoryId" asp-items="ViewBag.subsubcategoriesIdList"></select>
+                <span asp-validation-for="SubsubcategoryId" class="c-red"></span>
+            </td>
+        </tr>
+    </table>
+
+    <div class="df-sb">
+        <a asp-action="Index" asp-controller="Products" class="buttonAction">Wróć</a>
+        <input type="submit" value="Zapisz" class="buttonAction" />
+    </div>
+</form>

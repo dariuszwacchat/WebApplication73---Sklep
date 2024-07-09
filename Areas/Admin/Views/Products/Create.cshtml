@@ -1,0 +1,171 @@
+﻿@model Product
+
+@if (Model != null)
+{
+
+    <h1>@Model.Name</h1>
+    <h1>@Model.Description</h1>
+}
+
+
+<form id="form" method="post" asp-action="Create" asp-controller="Products" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="c-red"></div>
+
+    <table class="tablea" cellspacing="0" cellpadding="0">
+        <tr>
+            <td>Nazwa</td>
+            <td class="db">
+                <input asp-for="Name" />
+                <span asp-validation-for="Name" class="c-red"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>Opis</td>
+            <td class="db">
+                <div class="toolbar">
+                    <button type="button" onclick="toggleFormat('bold')">Pogrubienie (B)</button>
+                    <button type="button" onclick="toggleFormat('italic')">Pochylenie (I)</button>
+                    <button type="button" onclick="toggleFormat('underline')">Podkreślenie (U)</button>
+                    <select onchange="changeFontSize()">
+                        <option value="">Wielkość czcionki</option>
+                        @for (int size = 1; size <= 7; size++)
+                        {
+                            <option value="@size">@size</option>
+                        }
+                    </select>
+                    <input type="color" onchange="changeTextColor()" title="Kolor tekstu">
+                    <input type="file" multiple onchange="insertImages(this)" accept="image/*" title="Dodaj zdjęcia">
+                    <button type="button" onclick="alignText('left')">Wyrównaj do lewej</button>
+                    <button type="button" onclick="alignText('center')">Wyrównaj do środka</button>
+                    <button type="button" onclick="alignText('right')">Wyrównaj do prawej</button>
+                    <button type="button" onclick="toggleList('ordered')">Lista numerowana</button>
+                    <button type="button" onclick="toggleList('unordered')">Lista wypunktowana</button>
+                </div>
+
+                @* Ukryte pole textarea *@
+                <textarea asp-for="Description" id="editor" class="w-100 h-70px" style="display:none;"></textarea>
+
+                @* Obszar edycji tekstu *@
+                <div id="editor" contenteditable="true" data-description="Description" placeholder="Wprowadź tekst tutaj..."></div>
+
+                <input type="hidden" asp-for="Description" id="descriptionHidden" />
+                @*<textarea asp-for="Description" class="w-100 h-70px"></textarea>
+        <span asp-validation-for="Description" class="c-red"></span>*@
+            </td>
+        </tr>
+        <tr>
+            <td>Zdjęcie</td>
+            <td class="db">
+                <input type="file" name="files" multiple />
+            </td>
+        </tr>
+        <tr>
+            <td>Cena</td>
+            <td class="db">
+                <input asp-for="Price" />
+                <span asp-validation-for="Price" class="c-red"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>Dostępna ilość</td>
+            <td class="db">
+                <input asp-for="Quantity" />
+                <span asp-validation-for="Quantity" class="c-red"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>Zniżka w %</td>
+            <td class="db">
+                <input asp-for="Znizka" />
+                <span asp-validation-for="Znizka" class="c-red"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>Marka</td>
+            <td class="db">
+                <select asp-for="MarkaId" asp-items="ViewBag.markiIdList"></select>
+                <span asp-validation-for="Marka" class="c-red"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>Kategoria</td>
+            <td class="db">
+                <select asp-for="CategoryId" asp-items="ViewBag.categoriesIdList"></select>
+                <span asp-validation-for="CategoryId" class="c-red"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>Subkategoria</td>
+            <td class="db">
+                <select asp-for="SubcategoryId" asp-items="ViewBag.subcategoriesIdList"></select>
+                <span asp-validation-for="SubcategoryId" class="c-red"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>Subsubkategoria</td>
+            <td class="db">
+                <select asp-for="SubsubcategoryId" asp-items="ViewBag.subsubcategoriesIdList"></select>
+                <span asp-validation-for="SubsubcategoryId" class="c-red"></span>
+            </td>
+        </tr>
+    </table>
+
+    <input type="submit" value="Dodaj" class="buttonAction" />
+</form>
+
+
+
+
+
+
+
+@section Scripts {
+    <script>
+        function toggleFormat(format) {
+            document.execCommand(format, false, null);
+        }
+
+        function changeFontSize() {
+            const size = document.querySelector('select').value;
+            if (size) {
+                document.execCommand('fontSize', false, size);
+            }
+        }
+
+        function changeTextColor() {
+            const color = document.querySelector('input[type="color"]').value;
+            document.execCommand('foreColor', false, color);
+        }
+
+        function alignText(align) {
+            document.execCommand('justify' + align.charAt(0).toUpperCase() + align.slice(1), false, null);
+        }
+
+        function toggleList(type) {
+            document.execCommand('insert' + (type === 'ordered' ? 'Order' : 'Unordered') + 'List', false, null);
+        }
+
+        function insertImages(input) {
+            const files = input.files;
+            for (let i = 0; i < files.length; i++) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.style.maxWidth = '100%';
+                    document.execCommand('insertHTML', false, img.outerHTML);
+                };
+                reader.readAsDataURL(files[i]);
+            }
+        }
+
+         
+
+        // Przechwycenie wysłania formularza i ustawienie wartości pola przed przesłaniem
+        document.getElementById('form').addEventListener('submit', function () { 
+            var editorContent = document.getElementById('editor').innerText;
+            alert(editorContent);
+            document.getElementById('descriptionHidden').value = editorContent;
+        });
+    </script>
+}

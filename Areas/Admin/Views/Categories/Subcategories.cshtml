@@ -1,0 +1,81 @@
+﻿@*@model SubcategoriesViewModel
+
+@{
+    int index = 0;
+}
+
+<div class="df-sb mt-20 mb-20">
+    <div></div>
+    <div class="df">
+        <form method="post" asp-action="Subcategories" asp-controller="Categories" asp-area="Admin">
+            <input type="hidden" asp-for="CategoryId" />
+
+            <div class="df">
+                <div>
+                    <input asp-for="SearchPhrase" />
+                    <input type="submit" value="Szukaj" class="buttonAction" />
+                </div>
+                <div>
+                    <select asp-for="SortowanieOption" asp-items='@new SelectList(new List<string> ()
+                    { "Nazwa-Rosnąco", "Nazwa-Malejąco",
+                      "Odwiedziny-Rosnąco", "Odwiedziny-Malejąco",
+                      "Posty-Rosnąco", "Posty-Malejąco"
+                    })'></select>
+                    <input type="submit" value="Sortuj" class="buttonAction" />
+                </div>
+            </div>
+        </form>
+        <a asp-action="Create" asp-controller="Subcategories" asp-route-categoryId="@Model.CategoryId" class="fs-11 c-white"
+           style="padding: 15px; border-radius: 4px; background-color: darkslategrey; border: none;">+ Dodaj</a>
+    </div>
+</div>
+
+
+
+<table cellpadding="0" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Lp</th>
+            <th class="w-100">Wyświetlana nazwa</th>
+            <th>Kategoria</th>
+            <th>Posty</th>
+            <th>Odwiedzin</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var subcategory in Model.Subcategories)
+        {
+            index++;
+            <tr>
+                <td>
+                    <span>@index.</span>
+                </td>
+                <td>
+                    <span>
+                        @subcategory.FullName
+                    </span>
+                </td>
+                <td>
+                    @if (subcategory.Category != null)
+                    {
+                        <span>
+                            @subcategory.Category.FullName
+                        </span>
+                    }
+                </td> 
+                <td>
+                    <span class="borderCount">
+                        @subcategory.IloscOdwiedzin
+                    </span>
+                </td>
+                <td>
+                    <div class="db">
+                        <a asp-action="Delete" asp-controller="Subcategories" asp-route-id="@subcategory.SubcategoryId" class="deleteButton">Delete</a>
+                        <a asp-action="Edit" asp-controller="Subcategories" asp-route-id="@subcategory.SubcategoryId" class="editButton">Edit</a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>*@

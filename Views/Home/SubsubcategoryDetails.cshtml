@@ -1,0 +1,19 @@
+﻿@model HomeViewModel
+
+<div class="df">
+    <div class="w-250px">
+        <div class="w-250px">
+            <form method="post" asp-action="SubsubcategoryDetails" asp-controller="Home">
+                <input type="hidden" asp-for="CategoryId" />
+                <input type="hidden" asp-for="SubcategoryId" />
+                <input type="hidden" asp-for="SubsubcategoryId" />
+
+                <partial name="_leftNavigation" model="@Model" />
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <partial name="_products" model="@Model" />
+    </div>
+</div>

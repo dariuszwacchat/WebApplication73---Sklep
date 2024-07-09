@@ -1,0 +1,85 @@
+﻿@model KoszykViewModel
+
+@{
+    int index = 0;
+}
+
+<div class="df">
+    <div class="w-250px">
+        <div class="w-250px db">
+            <partial name="_leftNavigationLogin" />
+        </div>
+    </div>
+
+    <div class="db">
+
+        <div class="c-black">
+            <table cellpadding="0" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Lp</th>
+                        <th>Photo</th>
+                        <th>Nazwa</th>
+                        <th>Ilość</th>
+                        <th>Cena</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <thead>
+                    @foreach (var koszyk in Model.Koszyki)
+                    {
+                        index++;
+                        <tr>
+                            <td>@index.</td>
+                            <td>
+                                <div class="image w-70px">@*
+                                    <img src="@koszyk.Product.PhotosProduct[0].Path" />*@
+                                </div>
+                            </td>
+
+                            <td class="w-100">
+                                <a asp-action="ProductDetails" asp-controller="Home" asp-route-productId="@koszyk.Product.ProductId">@koszyk.Product.Name</a>
+                            </td>
+
+                            <td>
+                                <span>x</span>
+                                <span>@koszyk.Ilosc</span>
+                            </td>
+
+                            <td>@koszyk.Cena.00 zł</td>
+
+                            <td>
+                                <a asp-action="Delete" asp-controller="Koszyki" asp-route-koszykId="@koszyk.KoszykId">
+                                    X
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </thead>
+            </table>
+        </div>
+
+
+
+        <table class="tablePodsumowanie">
+            <tr>
+                <td>Ilość zamawianych produktów: </td>
+                <td>@Model.IloscProduktow szt.</td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="b">Suma do zapłaty: </span>
+                </td>
+                <td>@Model.Suma.00 zł</td>
+            </tr>
+        </table>
+
+        <div>
+            <a asp-action="" asp-controller="" class="buttonAction float-right" style="border-radius: 20px; padding: 5px 20px;">
+                Idź do kasy
+            </a>
+        </div>
+    </div>
+</div>
+
+ 

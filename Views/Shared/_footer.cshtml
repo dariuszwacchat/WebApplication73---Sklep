@@ -1,0 +1,110 @@
+﻿
+@{
+    var categories = await Context.Categories
+        .Include (i=> i.Subcategories)
+        .ToListAsync ();
+}
+
+
+<div class="footer">
+    <div class="w-1000px mt-10 pt-10" style="margin: 0px auto;">
+        <div class="df-sb">
+            <ul class="footerUl">
+                <li>
+                    <a asp-action="" asp-controller="">KARTY PODARUNKOWE I BONUSY</a>
+                </li>
+                <li>
+                    <a asp-action="" asp-controller="">Program rabatowy i lojalnościowy</a>
+                </li>
+                <li>
+                    <a asp-action="" asp-controller="">Naciągi testowe</a>
+                </li>
+                <li>
+                    <a asp-action="" asp-controller="">Karty podarunkowe</a>
+                </li>
+            </ul>
+
+            <ul class="footerUl">
+                <li>
+                    <a asp-action="" asp-controller="">REGULAMINY</a>
+                </li>
+                <li>
+                    <a asp-action="" asp-controller="">Regulamin</a>
+                </li>
+                <li>
+                    <a asp-action="" asp-controller="">Dostawa i koszty wysyłki</a>
+                </li>
+                <li>
+                    <a asp-action="" asp-controller="">Polityka prywatości</a>
+                </li>
+                <li>
+                    <a asp-action="" asp-controller="">Bezpieczeństwo</a>
+                </li>
+                <li>
+                    <a asp-action="" asp-controller="">Reklamacje</a>
+                </li>
+                <li>
+                    <a asp-action="" asp-controller="">Zwroty i wymiana</a>
+                </li>
+                <li>
+                    <a asp-action="" asp-controller="">Najczęstsze pytania</a>
+                </li>
+            </ul>
+
+            <ul class="footerUl">
+                <li>
+                    <a asp-action="" asp-controller="">SERWIS RAKIET</a>
+                </li>
+                <li>
+                    <a asp-action="" asp-controller="">Naciąganie rakiet tenisowych</a>
+                </li>
+                <li>
+                    <a asp-action="" asp-controller="">Tuning rakiet tenisowych</a>
+                </li>
+                <li>
+                    <a asp-action="" asp-controller="">Testowanie rakiet tenisowych</a>
+                </li>
+                <li>
+                    <a asp-action="" asp-controller="">KONTAKT</a>
+                </li>
+            </ul>
+
+            <ul class="footerUl">
+                <li>
+                    <a asp-action="" asp-controller="">STREFA WIEDZY</a>
+                </li>
+                <li>
+                    <a asp-action="" asp-controller="">Rakiety, naciągi</a>
+                </li>
+                <li>
+                    <a asp-action="" asp-controller="">Jak naciągnąć rakietę?</a>
+                </li>
+                <li>
+                    <a asp-action="" asp-controller="">Dobór naciągu</a>
+                </li>
+                <li>
+                    <a asp-action="" asp-controller="">Rodzaje Naciągów Tenisowych</a>
+                </li>
+                <li>
+                    <a asp-action="" asp-controller="">Strefa Marki Babolat</a>
+                </li>
+                <li>
+                    <a asp-action="" asp-controller="">SKLEP STACJONARNY WARSZAWA</a>
+                </li>
+            </ul>
+
+            <div class="db newsletter">
+                <p class="b">NEWSLETTER</p>
+                <p>
+                    Dopisz się do naszej listy mailingowej!
+                </p>
+                <input email="newsletter" />
+                <p>
+                    <input type="checkbox" />
+                    Warunki newslettera
+                </p>
+                <a asp-action="" asp-controller="" class="buttonAction">Zapisz</a>
+            </div>
+        </div>
+    </div>
+</div>

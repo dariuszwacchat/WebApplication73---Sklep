@@ -1,0 +1,51 @@
+﻿@model Product
+
+<table cellpadding="0" cellspacing="0" style="background-color: rgb(240,240,240);">
+    <tr>
+        <td class="w-50">
+            <div class="image">@*
+                <img src="@Model.PhotosProduct[0].Path" />*@
+            </div>
+        </td>
+        <td class="db">
+            <div>@Model.Name</div>
+            <div class="df p-1 w-100 centery"
+                 style="border-radius: 7px; background-color: rgb(240,240,240) ">
+
+                <div class="p-5 fs-15 w-50 text-center"
+                     style="color: firebrick; border-radius: 5px; background-color: white;">
+                    @{
+                        double percent = (Model.Price * Model.Znizka) / 100;
+                        double price = Model.Price - percent;
+                        price = Math.Round(price, 0);
+                    }
+                    @price.00 zł
+                </div>
+
+                <div class="fs-12 w-50 h-100 centerxy c-gray"
+                     style="border-radius: 5px; min-width: 70px; padding: 0px 10px;">
+                    <span style="text-decoration: line-through">
+                        @Model.Price.00 zł
+                    </span>
+                </div>
+            </div>
+            <div class="fs-11">@Model.Description</div>
+
+            <div class="df mt-20">
+                <a asp-action="Create" asp-controller="Koszyki"
+                   asp-route-categoryId="@Model.CategoryId"
+                   asp-route-subcategoryId="@Model.SubcategoryId"
+                   asp-route-subsubcategoryId="@Model.SubsubcategoryId"
+                   asp-route-productId="@Model.ProductId"
+                   class="mr-10"
+                   style="padding: 10px 20px; background-color: darkorange; color: white; border-radius: 30px;">
+                    Dodaj do koszyka
+                </a>
+                <a asp-action="Create" asp-controller="Favourites" asp-route-productId="@Model.ProductId"
+                   style="padding: 10px 20px; background-color: white; border-radius: 30px;">
+                    Dodaj do ulubionych
+                </a>
+            </div>
+        </td>
+    </tr>
+</table>

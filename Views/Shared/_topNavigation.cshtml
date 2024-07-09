@@ -1,0 +1,164 @@
+﻿@inject KoszykService KoszykService
+
+@{
+
+    ApplicationUser user = new ApplicationUser ();
+    if (SignInManager.IsSignedIn (User))
+    {
+        @*user = await Context.Users
+            .Include(i=> i.Favourites)
+            .FirstOrDefaultAsync (f=> f.UserName == User.Identity.Name);*@ 
+    } 
+
+
+    var categories = await Context.Categories
+        .Include (i=> i.Subcategories)
+            .ThenInclude (t=>t.Subsubcategories)
+                .ThenInclude(t=> t.Products) 
+        .ToListAsync ();
+
+
+}
+
+<div class="pt-4 pb-4 c-white bg-white" style="border-bottom: 1px solid; background-color: navy">
+    <div class="w-1000px df-sb fs-10 h-35px centery" style="margin: 0 auto;">
+        <div>
+            Skontaktuj się: <span class="b">533 387 888</span> (Godziny obsługi klientów: 10-16)
+        </div>
+        <div class="df links"> 
+            <partial name="_LoginPartial" />
+        </div>
+    </div>
+</div>
+
+<div class="h-60px pt-10 bg-white">
+    <div class="w-1000px df-sb centery" style="margin: 0px auto;">
+        <div class="image h-25px">
+            <a asp-action="Index" asp-controller="Products">
+                <img src="https://www.protenis.com.pl/grafika/logo.png" />
+            </a>
+        </div>
+
+        <div class="df-sb w-300px h-30px p-2 centery"
+             style="border-radius: 20px; border: 2px solid cornflowerblue;">
+            <input name="q"
+                   style="border: none; margin-left: 5px; font-size: 11px; width: 100%; outline:none; border-radius: 10px;" />
+            <button style="font-size: 11px; border: none; outline: none; border-radius: 20px; height: 100%; padding: 0px 15px; background-color: navy; color: white; text-align: center">szukaj</button>
+        </div>
+
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <div class="df">
+                <p class="mr-10">Twoje konto</p>
+                <a asp-action="Index" asp-controller="Koszyk" class="mr-10">Koszyk (@KoszykService.GetAll().Sum(s => s.Ilosc))</a>
+                <p class="mr-10">Ulubione</p>
+            </div>
+        }
+        else
+        {
+            <div class="df">
+                <p class="mr-10">Twoje konto</p>
+                <a asp-action="Index"
+                   asp-controller="Koszyk" 
+                   class="mr-10">Koszyk (@KoszykService.GetAll().Sum(s => s.Ilosc))</a>
+                <p class="mr-10">Ulubione</p>
+            </div>
+        }
+
+        <div id="koszyk-section">
+            <div id="koszyk-icon">
+                <!-- Tutaj możesz dodać ikonę koszyka lub coś innego -->
+            </div>
+            <div id="koszyk-animacja">
+                <!-- Animacja, która pojawi się po dodaniu produktu do koszyka -->
+            </div>
+        </div>
+
+        <div>
+            <a asp-action="CreateOrder" asp-controller="Payment">payment</a>
+        </div>
+
+    </div>
+</div>
+
+
+
+<div class="h-50px centery bg-white" style="border-bottom: 1px solid rgb(220,220,220); ">
+    <div class="w-1000px" style="margin: 0px auto;">
+
+        <ul class="df categoryUl">
+
+
+            <!-- pierwszy poziom nawigacji --> 
+            @foreach (Category category in categories.OrderBy(o => o.Kolejnosc).ToList())
+            {
+                <li class="categoryLi">
+
+                    <a asp-action="Index" 
+                       asp-controller="Products" 
+                       asp-route-CategoryName="@category.Name" 
+                       class="categoryA">
+                        @category.FullName
+                    </a>
+
+                     
+
+                    @if (category.Subcategories.Count > 1)
+                    {
+                        <div class="subNavigation">
+                            <ul class="df" style="min-width: 250px;">
+
+                                 
+
+
+                                <!-- drugi poziom nawigacji --> 
+                                @foreach (Subcategory subcategory in category.Subcategories.OrderBy(o => o.Kolejnosc).ToList())
+                                {
+                                    <li class="subcategoryLi">
+                                        <a asp-action="Index" 
+                                           asp-controller="Products" 
+                                           asp-route-CategoryName="@category.Name" 
+                                           asp-route-SubcategoryName="@subcategory.Name"
+                                           class="subcategoryA">
+                                            @subcategory.FullName (@subcategory.Subsubcategories.Capacity)
+                                        </a>
+
+
+
+                                        <ul class="db mt-10">
+
+
+
+                                            <!-- trzeci poziom nawigacji -->
+                                            @foreach (Subsubcategory subsubcategory in subcategory.Subsubcategories)
+                                            {
+                                                <li>
+                                                    <a asp-action="Index" 
+                                                       asp-controller="Products" 
+                                                       asp-route-CategoryName="@category.Name" 
+                                                       asp-route-SubcategoryName="@subcategory.Name" 
+                                                       asp-route-SubsubcategoryName="@subsubcategory.Name"  
+                                                       class="subsubcategoryA">
+                                                        @subsubcategory.FullName (@subsubcategory.Products.Count)
+                                                    </a>
+
+                                                </li>
+                                            }
+                                        </ul>
+                                    </li>
+                                }
+
+
+                            </ul>
+                        </div>
+                    }
+
+
+                </li>
+            }
+        </ul>
+
+    </div>
+</div>
+
+ 

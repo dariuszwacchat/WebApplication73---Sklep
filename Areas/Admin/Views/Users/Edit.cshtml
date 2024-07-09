@@ -1,0 +1,110 @@
+﻿@model EditUserViewModel
+ 
+
+<form method="post" asp-action="Edit" asp-controller="Users">
+    <input type="hidden" asp-for="User.Id" value="@Model.User.Id" />
+    <input type="hidden" asp-for="User.ClientId" value="@Model.User.ClientId" />
+
+
+    <div class="df">
+        <div class="w-50">
+
+            <h1>Dane konta</h1>
+            <div class="form-group">
+                <label asp-for="User.Email"></label>
+                <input asp-for="User.Email" class="form-control" />
+                <span asp-validation-for="User.Email" class="c-red"></span>
+            </div>
+
+
+
+            <h1>Dane Klienta</h1>
+
+            <div class="form-group">
+                <label asp-for="@Model.User.Client.Imie"></label>
+                <input asp-for="@Model.User.Client.Imie" class="form-control" />
+                <span asp-validation-for="@Model.User.Client.Imie" class="c-red"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.User.Client.Nazwisko"></label>
+                <input asp-for="@Model.User.Client.Nazwisko" class="form-control" />
+                <span asp-validation-for="@Model.User.Client.Nazwisko" class="c-red"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.User.Client.Ulica"></label>
+                <input asp-for="@Model.User.Client.Ulica" class="form-control" />
+                <span asp-validation-for="@Model.User.Client.Ulica" class="c-red"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.User.Client.KodPocztowy"></label>
+                <input asp-for="@Model.User.Client.KodPocztowy" class="form-control" />
+                <span asp-validation-for="@Model.User.Client.KodPocztowy" class="c-red"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.User.Client.Miejscowosc"></label>
+                <input asp-for="@Model.User.Client.Miejscowosc" class="form-control" />
+                <span asp-validation-for="@Model.User.Client.Miejscowosc" class="c-red"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.User.Client.Kraj"></label>
+                <select asp-for="@Model.User.Client.Kraj" asp-items='@new SelectList(new List<string>() { "Polska" })'></select>
+                <span asp-validation-for="@Model.User.Client.Kraj" class="c-red"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.User.Client.Telefon"></label>
+                <input asp-for="@Model.User.Client.Telefon" class="form-control" />
+                <span asp-validation-for="@Model.User.Client.Telefon" class="c-red"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.User.Client.RodzajOsoby"></label>
+                <select asp-for="@Model.User.Client.RodzajOsoby" asp-items='@new SelectList(Enum.GetNames(typeof(RodzajOsoby)))'></select>
+                <span asp-validation-for="@Model.User.Client.RodzajOsoby" class="c-red"></span>
+            </div>
+
+            <hr />
+
+            <div class="form-group">
+                <label asp-for="@Model.User.Client.Newsletter"></label>
+                <input asp-for="@Model.User.Client.Newsletter" class="form-control" />
+                <span asp-validation-for="@Model.User.Client.Newsletter" class="c-red"></span>
+            </div>
+        </div>
+
+
+        <div class="w-50 db">
+            <h3>Role</h3>
+
+            @foreach (var role in await Context.Roles.ToListAsync())
+            {
+                string roleName = role.Name;
+                string roleNamForName = $"{role.Name}ForName";
+
+                bool isRoleAssigned = Model.Roles != null && Model.Roles.Contains(roleName);
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="@roleNamForName" name="Roles" value="@roleName" @(isRoleAssigned ? "checked" : "") />
+                    <label class="form-check-label" for="@roleNamForName">@roleName | </label>
+                </div>
+            }
+        </div>
+    </div>
+
+
+
+    <div class="p-20 shadow border">
+        <div class="df-sb">
+            <a asp-action="Index"
+               asp-controller="Clients">
+                Back
+            </a>
+
+            <input type="submit" value="Zapisz" class="editButton" />
+        </div>
+    </div>
+</form>

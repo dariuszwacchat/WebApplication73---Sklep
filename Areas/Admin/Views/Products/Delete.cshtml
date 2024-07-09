@@ -1,0 +1,9 @@
+﻿
+<h5 class="mb-10">Czy na pewno chcesz usunąć wskazaną pozycję?</h5>
+
+<form method="post" asp-action="Delete" asp-controller="Products">
+    <div class="df">
+        <a asp-area="Admin" asp-action="Index" asp-controller="Posts" class="buttonAction mr-6">Nie</a>
+        <input type="submit" value="Tak" class="btn btn-danger" />
+    </div>
+</form>

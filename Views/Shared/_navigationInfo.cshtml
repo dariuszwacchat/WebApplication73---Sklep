@@ -1,0 +1,69 @@
+﻿@{
+    NavigationInfo ni = Info.NavigationInfo;
+    string text = "Jesteś tutaj: ";
+
+
+    <div class="fs-11">
+
+        @if (ni != null)
+        {
+            switch (ni.Navigation)
+            {
+                case Navigation.Index:
+                    <div class="df">
+                        <span class="mr-10">@text</span>
+                        <a asp-action="Index" asp-controller="Home">Home</a>
+                    </div>
+                    break;
+
+                case Navigation.Category:
+                    <div class="df centery">
+                        <span class="mr-10">@text</span>
+                        <a asp-action="Index" asp-controller="Home">Home</a>
+                        <span class="ml-10 mr-10 fs-8">-></span>
+                        <a asp-action="PostsCategory" asp-controller="Home">@ni.CategoryName</a>
+                    </div>
+                    break;
+
+                case Navigation.Subcategory:
+                    <div class="df centery">
+                        <span class="mr-10">@text</span>
+                        <a asp-action="Index" asp-controller="Home">Home</a>
+                        <span class="ml-10 mr-10 fs-8">-></span>
+                        <a asp-action="PostsCategory" asp-controller="Home">@ni.CategoryName</a>
+                        <span class="ml-10 mr-10 fs-8">-></span>
+                        <a asp-action="PostsCategory" asp-controller="Home">@ni.SubcategoryName</a>
+                    </div>
+                    break;
+
+                case Navigation.Subsubcategory:
+                    <div class="df centery">
+                        <span class="mr-10">@text</span>
+                        <a asp-action="Index" asp-controller="Home">Home</a>
+                        <span class="ml-10 mr-10 fs-8">-></span>
+                        <a asp-action="PostsCategory" asp-controller="Home">@ni.CategoryName</a>
+                        <span class="ml-10 mr-10 fs-8">-></span>
+                        <a asp-action="PostsCategory" asp-controller="Home">@ni.SubcategoryName</a>
+                        <span class="ml-10 mr-10 fs-8">-></span>
+                        <a asp-action="PostsCategory" asp-controller="Home">@ni.SubsubcategoryName</a>
+                    </div>
+                    break;
+
+
+                case Navigation.TwojeKonto:
+                    <div class="df centery">
+                        <span class="mr-10">@text</span>
+                        <a asp-action="Index" asp-controller="Home">Home</a>
+                        <span class="ml-10 mr-10 fs-8">-></span>
+                        <a asp-action="Index" asp-controller="Account">TwojeKonto</a> 
+                    </div>
+                    break;
+
+                    @*case Navigation.Wyszukiwarka:
+                    <span class="mr-10 fs-8">Wyszukiwarka</span>
+                    break;*@
+            }
+        }
+    </div>
+
+} 

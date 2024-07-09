@@ -1,0 +1,41 @@
+﻿@model ApplicationUser
+
+
+<div class="df"
+     style="border: 1px solid rgb(230,230,230); border-radius: 1px;">
+
+    <div class="w-50">
+        <div class="w-100 centerx">
+            <div class="image">
+                <img src="https://th.bing.com/th/id/OIP.awAiMS1BCAQ2xS2lcdXGlwHaHH?w=205&h=197&c=7&r=0&o=5&dpr=1.6&pid=1.7"
+                     class="centerx" />
+            </div>
+        </div>
+    </div>
+
+    <div class="w-50">
+
+        <table class="mt-15">
+            <tr>
+                <td>UserName:</td>
+                <td>@Model.UserName</td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td>@Model.Email</td>
+            </tr> 
+            <tr>
+                <td>Ilość zalogowań:</td>
+                <td>@Model.IloscZalogowan</td>
+            </tr>
+            <tr>
+                <td>ostatnio zalogowany:</td>
+                <td>@Model.DataOstatniegoZalogowania</td>
+            </tr> 
+        </table>
+    </div>
+</div>
+
+<a asp-action="Index" asp-controller="Users" class="btn btn-secondary fs-10">
+    Back
+</a>

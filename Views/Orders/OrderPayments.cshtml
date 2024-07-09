@@ -1,0 +1,60 @@
+﻿@model PaymentsViewModel
+
+
+<form method="post" asp-action="OrderPayments" asp-controller="Orders">
+    <input type="hidden" asp-for="OrderId" /> 
+
+
+        <div class="df">
+            <div class="w-50 db">
+                <h2>Sposób płatności</h2>
+
+
+                <label>
+                    <input type="radio" asp-for="SposobPlatnosci" value="Płatność 1" />
+                    Płatność 1
+                </label>
+
+                <label>
+                    <input type="radio" asp-for="SposobPlatnosci" value="Płatność 2" />
+                    Płatność 2
+                </label>
+
+                <label>
+                    <input type="radio" asp-for="SposobPlatnosci" value="Płatność 3" />
+                    Płatność 3
+                </label>
+                 
+                <span asp-validation-for="SposobWysylki" class="c-red"></span>
+            </div>
+
+
+
+            <div class="w-50 db">
+                 
+                    <h2>Sposób wysyłki</h2>
+
+                    <label>
+                        <input type="radio" asp-for="SposobWysylki" value="Wysyłka 1" />
+                        Wysyłka 1
+                    </label>
+
+                    <label>
+                        <input type="radio" asp-for="SposobWysylki" value="Wysyłka 2" />
+                        Wysyłka 2
+                    </label>
+
+                    <label>
+                        <input type="radio" asp-for="SposobWysylki" value="Wysyłka 3" />
+                        Wysyłka 3
+                    </label>
+
+                    <span asp-validation-for="SposobWysylki" class="c-red"></span>
+                </div> 
+             
+        </div>
+
+    
+    <a asp-action="OrderFormularz" asp-controller="Orders">Wstecz</a>
+    <input type="submit" value="Dalej" />
+</form>

@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <environment include="Development">
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/stylead.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
+    </environment>
+</head>
+<body>
+    <div class="db">
+
+        <!-- top navigation -->
+        <div class="h-50px shadow centery"
+             style="border-bottom: 1px solid rgba(220,220,220);">
+            <div class="w-900px"
+                 style="margin: 0 auto;">
+                <div class="df-sb fs-11 centery">
+                    <div class="df">
+                        <span>Dzisiejsza data: @DateTime.Now.ToShortDateString()</span>
+                        <span class="ml-6">godzina: @DateTime.Now.ToShortTimeString()</span>
+                    </div>
+                    <div>
+                        Zalogowany użytkownik: @User.Identity.Name
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <div class="centerx">
+            <div class="df w-900px">
+                <div style="width: 230px;">
+                    <div style="width: 230px">
+                        <partial name="_leftNavigation" />
+                    </div>
+                </div>
+                <div class="w-100 p-10">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> 
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

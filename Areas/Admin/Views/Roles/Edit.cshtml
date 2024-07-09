@@ -1,0 +1,22 @@
+﻿@model ApplicationRoleViewModel
+
+
+<form method="post" asp-action="Edit" asp-controller="Roles">
+    <input type="hidden" asp-for="Id" value="@Model.Id" />
+
+    <table>
+        <tr>
+            <td>Nazwa roli</td>
+            <td>
+                <input asp-for="Name" />
+                <span asp-validation-for="Name" class="c-red"></span>
+                <span>@Model.Result</span>
+            </td>
+        </tr>
+    </table>
+
+    <div class="df-sb border shadow p-20 mt-10">
+        <a asp-area="Admin" asp-action="Index" asp-controller="Roles">Back</a>
+        <input type="submit" value="Zapisz" class="button-6" />
+    </div>
+</form>

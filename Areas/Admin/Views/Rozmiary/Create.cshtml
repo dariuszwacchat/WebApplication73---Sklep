@@ -1,0 +1,22 @@
+﻿@model RozmiarViewModel
+
+<div class="fs-16 b mb-10">Tworzenie nowego rozmiaru</div>
+
+<form method="post" asp-action="Create" asp-controller="Rozmiary">
+    <table cellpadding="0" cellspacing="0" class="w-100">
+        <tr>
+            <td class="categoryName">
+                <span>Nazwa rozmiaru</span>
+            </td>
+            <td class="categoryInput">
+                <input asp-for="Name" />
+                <span asp-validation-for="Name" class="c-red"></span>
+                <span class="c-red">@Model.Result</span>
+            </td>
+        </tr>
+    </table>
+    <div class="df-sb mt-20">
+        <a asp-action="Index" asp-controller="Rozmiary" class="b buttonAction">Back</a>
+        <input type="submit" value="Zapisz" class="b buttonAction" />
+    </div>
+</form> 

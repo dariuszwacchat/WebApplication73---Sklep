@@ -1,0 +1,342 @@
+﻿@model ProductsViewModel
+
+
+@{
+    @*
+        Kiedy użytkownik przejdzie do ostaniej strony w produktach to trzeba zrobić nowe wyliczenia aby wynik
+        wynik był poprawny, poniższy kod odpowaida za to
+    *@
+    int iloscKolejnychProduktow = Model.PageSize * Model.PageIndex;
+    @*int lastValue = iloscKolejnychProduktow - Model.Products.Count;
+        if (Model.Paginator.TotalPage == Model.PageIndex)
+            iloscKolejnychProduktow = iloscKolejnychProduktow - lastValue;*@
+    var pokazanaIlosc = $"Produktów na stronie {iloscKolejnychProduktow} z {Model.Products.Count}";
+}
+
+
+
+
+<form method="post" asp-action="Index" asp-controller="Products">
+    <input type="hidden" asp-for="CategoryName" value="@Model.CategoryName" />
+    <input type="hidden" asp-for="SubcategoryName" value="@Model.SubcategoryName" />
+    <input type="hidden" asp-for="SubsubcategoryName" value="@Model.SubsubcategoryName" />
+
+    <input type="hidden" asp-for="SelectedBrandsString" value='@string.Join(",",Model.SelectedBrands)' />
+    <input type="hidden" asp-for="SelectedColorsString" value='@string.Join(",",Model.SelectedColors)' />
+    <input type="hidden" asp-for="SelectedRozmiaryString" value='@string.Join(",",Model.SelectedRozmiary)' />
+    <input type="hidden" asp-for="SelectedFiltersString" value='@string.Join(",",Model.SelectedFilters)' />
+
+    <input type="hidden" asp-for="PageIndex" value="@Model.PageIndex" />
+
+
+    <div class="df">
+        <div class="w-250px">
+            <div class="w-250px">
+                <partial name="_filtr" model="@Model" />
+            </div>
+        </div>
+
+
+        <div>
+
+
+            <!-- Selected filters  -->
+            <div class="df wrap">
+                @foreach (var selectedFiltr in Model.SelectedFilters)
+                {
+                    <a asp-action="Index"
+                       asp-controller="Products"
+                       asp-route-SelectedFiltr="@selectedFiltr"
+                       asp-route-CategoryName="@Model.CategoryName"
+                       asp-route-SubcategoryName="@Model.SubcategoryName"
+                       asp-route-SubsubcategoryName="@Model.SubsubcategoryName"
+                       asp-route-SelectedBrandsString='@string.Join(",",Model.SelectedBrands)'
+                       asp-route-SelectedColorsString='@string.Join(",",Model.SelectedColors)'
+                       asp-route-SelectedRozmiaryString='@string.Join(",",Model.SelectedRozmiary)'
+                       asp-route-SelectedFiltersString='@string.Join(",",Model.SelectedFilters)'
+                       asp-route-PageSize="@Model.PageSize"
+                       asp-route-PageIndex="@Model.PageIndex"
+                       asp-route-Start="@Model.Start"
+                       asp-route-End="@Model.End"
+                       asp-route-q="@Model.q"
+                       asp-route-SearchOption="@Model.SearchOption"
+                       asp-route-SortowanieOption="@Model.SortowanieOption"
+                       style="padding: 4px; border-radius: 5px; background-color: white; margin: 12px 3px;">
+                        @selectedFiltr
+                    </a>
+                }
+            </div>
+
+
+            <!-- Filtrowanie - górna belka -->
+            <div class="df-sb p-10 bg-lightgray">
+                <h4>@pokazanaIlosc</h4>
+
+                <div class="df centery">
+                    <p>Pokaż</p>
+                    <select asp-for="PageSize" asp-items='@new SelectList(new List<string> () { "5", "10", "15", "20" })' class="select-input"></select>
+                    <input type="submit" value="Wybierz" class="button3" />
+                </div>
+
+                <select asp-for="SortowanieOption" asp-items='new SelectList(new List<string>() { "Nazwa A-Z", "Nazwa Z-A", "Cena rosnąco", "Cena malejąco" })'></select>
+                <input type="submit" value="Sortuj" class="editButton" />
+            </div>
+
+
+            <!-- Products  -->
+            <div class="df-sb wrap">
+                @foreach (Product product in Model.Paginator)
+                {
+                    <div class="w-200px db card">
+                        <div class="image h-150px">
+                            <a asp-action="Details" asp-controller="Products" asp-route-productId="@product.ProductId" style="text-decoration: underline; color: rgb(20,20,20);">
+
+                                @if (product.PhotosProduct != null && product.PhotosProduct.Any())
+                                {
+                                    <partial name="_displayPhoto" model="@product.PhotosProduct[0].PhotoData" />
+                                }
+                            </a>
+                        </div>
+
+                        <div class="pl-10 pr-10 pb-10">
+                            <div class="df-sb centery mb-5">
+                                <div>
+                                    <div class="df">
+                                        <div class="df mt-5 fs-9" style="color: rgb(180,180,180);">
+                                            <span class="fs-8 mr-3">></span>
+                                            <span class="mr-3">@product.Marka.Name</span>
+                                        </div>
+                                        <div class="df mt-5 fs-9" style="color: rgb(180,180,180);">
+                                            <span class="fs-8 mr-3">></span>
+                                            @*@{
+                                                    if (product.SizesProduct != null && product.SizesProduct.Any())
+                                                    {
+                                                        <span class="mr-3">@product.SizesProduct[0].Name</span>
+                                                    }
+                                                }*@
+                                            <span class="mr-3">@product.Rozmiar</span>
+                                        </div>
+                                        <div class="df mt-5 fs-9" style="color: rgb(180,180,180);">
+                                            <span class="fs-8 mr-3"></span>
+                                            @*@{
+                                                    if (product.ColorsProduct != null && product.ColorsProduct.Any())
+                                                    {
+                                                        <span class="mr-3">@product.ColorsProduct[0].Name</span>
+                                                    }
+                                                }*@
+
+                                            <span class="mr-3">@product.Kolor</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-5 fs-14">
+                                        <a asp-action="ProductDetails" asp-controller="Home" asp-route-productId="@product.ProductId" style="text-decoration: underline; color: rgb(20,20,20);">
+                                            @product.Name
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="image w-20px h-15px">
+                                    <a asp-action="Create" asp-controller="Favourites" asp-route-productId="@product.ProductId">
+                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdeg8x7u-7y1YmhXk05th5NDaAsg1IE-iF5Q&usqp=CAU" />
+                                    </a>
+                                </div>
+                            </div>
+
+
+                            <div class="mb-5" style="color: rgb(180,180,180) ">
+                                @if (!string.IsNullOrEmpty(product.Description))
+                                {
+                                    <partial name="_cropText" model="@Tuple.Create(product.Description, 35)" />
+                                }
+                            </div>
+
+                            <div class="df w-100 mt-10 mb-10">
+                                <div class="fs-15">
+                                    @{
+                                        double percent = (product.Price * product.Znizka) / 100;
+                                        double price = product.Price - percent;
+                                        price = Math.Round(price, 0);
+                                    }
+                                    <span style="color: firebrick">
+                                        @price.00 zł
+                                    </span>
+                                </div>
+
+                                <span class="fs-10 ml-10" style="text-decoration: line-through">
+                                    @product.Price.00 zł
+                                </span>
+                            </div>
+
+                            <a id="doKoszykaButton"
+                               asp-action="DodajDoKoszyka"
+                               asp-controller="Products"
+                               asp-route-ProductId="@product.ProductId"
+                               asp-route-CategoryName="@Model.CategoryName"
+                               asp-route-SubcategoryName="@Model.SubcategoryName"
+                               asp-route-SubsubcategoryName="@Model.SubsubcategoryName"
+                               asp-route-SelectedBrandsString='@string.Join(",",Model.SelectedBrands)'
+                               asp-route-SelectedColorsString='@string.Join(",",Model.SelectedColors)'
+                               asp-route-SelectedRozmiaryString='@string.Join(",",Model.SelectedRozmiary)'
+                               asp-route-SelectedFiltersString='@string.Join(",",Model.SelectedFilters)'
+                               asp-route-PageSize="@Model.PageSize"
+                               asp-route-PageIndex="@Model.PageIndex"
+                               asp-route-SortowanieOption="@Model.SortowanieOption"
+                               class="df w-100 centery doKoszyka">
+                                Do koszyka
+                            </a>
+                        </div>
+                    </div>
+
+                }
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+    <!-- Paginator -->
+    @{
+        bool hasPrevious = Model.Paginator.HasPreviousPage;
+        bool hasNext = Model.Paginator.HasNexPage;
+    }
+
+    <!-- Ilość wyświetlanych elementów -->
+
+
+    <div class="w-60 centery mt-30 mb-30">
+        <div class="w-100 centery">
+            <div class="df fs-11 centery">
+                @if (hasPrevious)
+                {
+                    <a asp-action="Index"
+                       asp-controller="Products"
+                       asp-route-CategoryName="@Model.CategoryName"
+                       asp-route-SubcategoryName="@Model.SubcategoryName"
+                       asp-route-SubsubcategoryName="@Model.SubsubcategoryName"
+                       asp-route-SelectedBrandsString='@string.Join(",",Model.SelectedBrands)'
+                       asp-route-SelectedColorsString='@string.Join(",",Model.SelectedColors)'
+                       asp-route-SelectedRozmiaryString='@string.Join(",",Model.SelectedRozmiary)'
+                       asp-route-SelectedFiltersString='@string.Join(",",Model.SelectedFilters)'
+                       asp-route-PageSize="@Model.PageSize"
+                       asp-route-PageIndex="@(Model.Paginator.PageIndex - 1)"
+                       asp-route-q="@Model.q"
+                       asp-route-SearchOption="@Model.SearchOption"
+                       asp-route-SortowanieOption="@Model.SortowanieOption"
+                       class="button3">
+                        Prev
+                    </a>
+                }
+                else
+                {
+                    <a asp-action="Index"
+                       asp-controller="Products"
+                       class="button3 disable-link">
+                        Prev
+                    </a>
+                }
+
+
+                <div class="df ml-10 mr-10">
+                    @{
+                        int length = Model.PageIndex + Model.Paginator.Count;
+
+                        string style = "padding: 3px 10px; border: 1px solid lightgray; background-color: white;";
+
+
+                        Model.Start = 1;
+                        Model.End = Model.PageSize + 1;
+                        int srodek = (int)Math.Round ((double) (Model.PageSize/2));
+
+                        if (Model.PageIndex > srodek)
+                        {
+                            Model.Start = Model.PageIndex - (srodek - 1);
+                            Model.End = Model.PageIndex + Model.PageSize - srodek;
+                        }
+
+
+                        for (var i = Model.Start; i < Model.End; i++)
+                        {
+                            if (i == Model.PageIndex)
+                            {
+                                style = "padding: 7px 10px; background-color: lightgray; color: black; font-weight: bold";
+                            }
+                            else
+                            {
+                                style = "padding: 7px 10px; background-color: white;";
+                            }
+                            if (i <= Model.Paginator.TotalPage)
+                            {
+                                <a asp-action="Index"
+                                   asp-controller="Products"
+                                   asp-route-CategoryName="@Model.CategoryName"
+                                   asp-route-SubcategoryName="@Model.SubcategoryName"
+                                   asp-route-SubsubcategoryName="@Model.SubsubcategoryName"
+                                   asp-route-SelectedBrandsString='@string.Join(",",Model.SelectedBrands)'
+                                   asp-route-SelectedColorsString='@string.Join(",",Model.SelectedColors)'
+                                   asp-route-SelectedRozmiaryString='@string.Join(",",Model.SelectedRozmiary)'
+                                   asp-route-SelectedFiltersString='@string.Join(",",Model.SelectedFilters)'
+                                   asp-route-PageSize="@Model.PageSize"
+                                   asp-route-PageIndex="@i"
+                                   asp-route-q="@Model.q"
+                                   asp-route-SearchOption="@Model.SearchOption"
+                                   asp-route-SortowanieOption="@Model.SortowanieOption"
+                                   class="paginator-item"
+                                   style="@style">
+                                    @i
+                                </a>
+                            }
+                        }
+                    }
+                </div>
+
+
+                <!-- W poniższym przypadku w przypadku niektórych routingów lista musi być zamieniona na tekst,
+                    a w kontrolerze z tekstu na listę, a poetm lista przekazana do widoku -->
+                @if (hasNext)
+                {
+                    <a asp-action="Index"
+                       asp-controller="Products"
+                       asp-route-CategoryName="@Model.CategoryName"
+                       asp-route-SubcategoryName="@Model.SubcategoryName"
+                       asp-route-SubsubcategoryName="@Model.SubsubcategoryName"
+                       asp-route-SelectedBrandsString='@string.Join(",",Model.SelectedBrands)'
+                       asp-route-SelectedColorsString='@string.Join(",",Model.SelectedColors)'
+                       asp-route-SelectedRozmiaryString='@string.Join(",",Model.SelectedRozmiary)'
+                       asp-route-SelectedFiltersString='@string.Join(",",Model.SelectedFilters)'
+                       asp-route-PageSize="@Model.PageSize"
+                       asp-route-PageIndex="@(Model.Paginator.PageIndex + 1)"
+                       asp-route-q="@Model.q"
+                       asp-route-SearchOption="@Model.SearchOption"
+                       asp-route-SortowanieOption="@Model.SortowanieOption"
+                       class="button3">
+                        Next
+                    </a>
+                }
+                else
+                {
+                    <a asp-action="Index"
+                       asp-controller="Products"
+                       class="button3 disable-link">
+                        Next
+                    </a>
+                }
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+</form>
+
+
+ 
